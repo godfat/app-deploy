@@ -8,5 +8,13 @@ namespace :app do
       sh 'git reset --hard'
     end
 
+    desc 'pull anything from origin'
+    task :pull do
+      (AppDeploy.dep + AppDeploy.gem).each{ |dep|
+        sh "git --git-dir #{dep.last}/.git pull"
+        sh 'git pull' if `git remote` != ''
+      }
+    end
+
   end # of git
 end # of app

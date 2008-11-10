@@ -6,6 +6,9 @@ Dir["#{Dir.pwd}/app/*.rake"].each{ |rake|
 namespace :app do
   desc 'deploy to master state'
   task :deploy => 'deploy:default'
+
+  desc 'install this application'
+  task :install => 'install:default'
 end
 
 module AppDeploy
@@ -23,4 +26,15 @@ module AppDeploy
   ensure
     Dir.chdir cwd
   end
+
+  attr_reader :dep
+  def dependency user, proj, path = proj
+    @dep << [user, proj, path]
+  end
+
+  attr_reader :gem
+  def dependency_gem user, proj, path = proj
+    @gem << [user, proj, path]
+  end
+
 end

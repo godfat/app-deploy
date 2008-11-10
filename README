@@ -1,21 +1,48 @@
 example:
 
+$ rake -T app
+(in /home/photos)
+rake app:deploy              # deploy to master state
+rake app:deploy:after        # after deploy hook for you to override
+rake app:deploy:before       # before deploy hook for you to override
+rake app:git:pull            # pull anything from origin
+rake app:git:reset           # make anything reflect master state
+rake app:install             # install this application
+rake app:install:after       # after install hook for you to override
+rake app:install:before      # before install hook for you to override
+rake app:mongrel:restart     # restart the mongrel cluster
+rake app:mongrel:start       # start the mongrel cluster
+rake app:mongrel:stop        # stop the mongrel cluster
+rake app:nginx:restart       # reload config
+rake app:nginx:start[nginx]  # start nginx, default nginx is /usr/sbin/nginx
+rake app:nginx:stop          # stop nginx
+rake app:server:restart      # override it if you don't use thin
+rake app:thin:restart        # restart the thin cluster
+rake app:thin:start          # start the thin cluster
+rake app:thin:stop           # stop the thin cluster
+
+Rakefile:
+
+begin
+  AppDeploy
+
+rescue NameError
+  # install app-deploy
+  `git clone git://github.com/godfat/app-deploy.git lib/tasks/app-deploy`
+  `git --git-dir lib/tasks/app-deploy/.git gc`
+
+ensure
+  AppDeploy.dependency_gem 'godfat', 'thumbo'
+  AppDeploy.dependency_gem 'godfat', 'friendly_format'
+  AppDeploy.dependency     'godfat', 'in_place_editing', 'vendor/plugins/in_place_editing'
+
+end
+
 namespace :app do
-  desc 'install this application'
-  task :install do
-    # install app-deploy
-    sh 'git clone git://github.com/godfat/app-deploy.git lib/tasks/app-deploy'
-    sh "git --git-dir lib/tasks/app-deploy/.git gc"
+  namespace :install do
+    task :before do
+      sh 'gem install bones'
+    end
 
-    # re-invoke rake to install
-    sh 'rake app:do_install --verbose'
-  end
-
-  task :do_install do
-    sh 'gem install bones'
-
-    AppDeploy.install_gem 'godfat', 'thumbo'
-    AppDeploy.install_gem 'godfat', 'friendly_format'
-    AppDeploy.install     'godfat', 'in_place_editing', 'vendor/plugins/in_place_editing'
   end
 end
