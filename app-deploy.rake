@@ -5,10 +5,10 @@ Dir["#{Dir.pwd}/app/*.rake"].each{ |rake|
 
 namespace :app do
   desc 'deploy to master state'
-  task :deploy => 'app:deploy:default'
+  task :deploy => 'deploy:default'
 
   desc 'install this application'
-  task :install => 'app:install:default'
+  task :install => 'install:default'
 end
 
 module AppDeploy
