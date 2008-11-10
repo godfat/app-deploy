@@ -33,8 +33,7 @@ rescue NameError
   # install app-deploy
   path = 'lib/tasks/app-deploy'
   `git clone git://github.com/godfat/app-deploy.git #{path}`
-  load 'lib/tasks/app-deploy/app-deploy.rake'
-  `rm -rf #{path}`
+  require 'lib/tasks/app-deploy/app-deploy.rake'
 
 ensure
   AppDeploy.dependency_gem 'godfat', 'thumbo'
