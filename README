@@ -1,0 +1,21 @@
+example:
+
+namespace :app do
+  desc 'install this application'
+  task :install do
+    # install app-deploy
+    sh 'git clone git://github.com/godfat/app-deploy.git lib/tasks/app-deploy'
+    sh "git --git-dir lib/tasks/app-deploy/.git gc"
+
+    # re-invoke rake to install
+    sh 'rake app:do_install --verbose'
+  end
+
+  task :do_install do
+    sh 'gem install bones'
+
+    AppDeploy.install_gem 'godfat', 'thumbo'
+    AppDeploy.install_gem 'godfat', 'friendly_format'
+    AppDeploy.install     'godfat', 'in_place_editing', 'vendor/plugins/in_place_editing'
+  end
+end

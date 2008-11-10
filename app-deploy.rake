@@ -17,10 +17,10 @@ module AppDeploy
 
   def install_gem user, proj, path = proj
     install user, proj, path
-    wd = Dir.pwd
+    cwd = Dir.pwd
     Dir.chdir path
     sh 'rake gem:install'
   ensure
-    Dir.chdir wd
+    Dir.chdir cwd
   end
 end
