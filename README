@@ -28,13 +28,16 @@ begin
 
 rescue NameError
   # install app-deploy
-  `git clone git://github.com/godfat/app-deploy.git lib/tasks/app-deploy`
-  `git --git-dir lib/tasks/app-deploy/.git gc`
+  path = 'lib/tasks/app-deploy'
+  `git clone git://github.com/godfat/app-deploy.git #{path}`
+  load 'lib/tasks/app-deploy/app-deploy.rake'
+  `rm -rf #{path}`
 
 ensure
   AppDeploy.dependency_gem 'godfat', 'thumbo'
   AppDeploy.dependency_gem 'godfat', 'friendly_format'
   AppDeploy.dependency     'godfat', 'in_place_editing', 'vendor/plugins/in_place_editing'
+  AppDeploy.dependency     'godfat', 'app-deploy', 'lib/tasks/app-deploy'
 
 end
 
