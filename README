@@ -5,6 +5,7 @@ $ rake -T app
 rake app:deploy              # deploy to master state
 rake app:deploy:after        # after deploy hook for you to override
 rake app:deploy:before       # before deploy hook for you to override
+rake app:git:gc              # git gc
 rake app:git:pull            # pull anything from origin
 rake app:git:reset           # make anything reflect master state
 rake app:install             # install this application
@@ -20,6 +21,8 @@ rake app:server:restart      # override it if you don't use thin
 rake app:thin:restart        # restart the thin cluster
 rake app:thin:start          # start the thin cluster
 rake app:thin:stop           # stop the thin cluster
+
+
 
 Rakefile:
 
