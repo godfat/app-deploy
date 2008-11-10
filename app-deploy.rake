@@ -29,12 +29,12 @@ module AppDeploy
 
   attr_reader :dep
   def dependency user, proj, path = proj
-    @dep << [user, proj, path]
+    (@dep ||= []) << [user, proj, path]
   end
 
   attr_reader :gem
   def dependency_gem user, proj, path = proj
-    @gem << [user, proj, path]
+    (@gem ||= []) << [user, proj, path]
   end
 
 end

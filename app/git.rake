@@ -16,5 +16,13 @@ namespace :app do
       }
     end
 
+    desc 'git gc'
+    task :gc do
+      (AppDeploy.dep + AppDeploy.gem).each{ |dep|
+        sh "git --git-dir #{dep.last}/.git gc"
+        sh 'git gc'
+      }
+    end
+
   end # of git
 end # of app
