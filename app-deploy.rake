@@ -27,14 +27,14 @@ module AppDeploy
     Dir.chdir cwd
   end
 
-  attr_reader :dep
+  def dep; @dep ||= []; end
   def dependency user, proj, path = proj
-    (@dep ||= []) << [user, proj, path]
+    dep << [user, proj, path]
   end
 
-  attr_reader :gem
+  def gem; @gem ||= []; end
   def dependency_gem user, proj, path = proj
-    (@gem ||= []) << [user, proj, path]
+    gem << [user, proj, path]
   end
 
 end
