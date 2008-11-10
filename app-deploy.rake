@@ -37,4 +37,18 @@ module AppDeploy
     gem << [user, proj, path]
   end
 
+  def each
+    cwd = Dir.pwd
+
+    (AppDeploy.dep + AppDeploy.gem).each{ |dep|
+      Dir.chdir dep.last
+
+      begin
+        yield(dep)
+      ensure
+        Dir.chdir cwd
+      end
+    }
+  end
+
 end
