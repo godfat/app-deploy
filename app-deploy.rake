@@ -19,7 +19,7 @@ module AppDeploy
     install user, proj, path
     wd = Dir.pwd
     Dir.chdir path
-    sh "rake gem:install --no-ri --no-rdoc"
+    sh 'rake gem:install'
   ensure
     Dir.chdir wd
   end
