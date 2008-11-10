@@ -12,12 +12,12 @@ namespace :app do
     task :do_install do
       AppDeploy.dep.each{ |dep|
         puts "installing #{dep[1]}..."
-        AppDeploy.install(*dep)
+        AppDeploy.clone(*dep)
       }
 
       AppDeploy.gem.each{ |dep|
         puts "installing #{dep[1]}..."
-        AppDeploy.install_gem(*dep)
+        AppDeploy.clone_gem(*dep)
       }
     end
 

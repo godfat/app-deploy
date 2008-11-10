@@ -13,7 +13,7 @@ end
 
 module AppDeploy
   module_function
-  def install user, proj, path = proj
+  def clone user, proj, path = proj
     if File.exist?(path)
       puts "skip #{proj} because #{path} exists"
     else
@@ -22,10 +22,15 @@ module AppDeploy
     end
   end
 
-  def install_gem user, proj, path = proj
-    install user, proj, path
+  def clone_gem user, proj, path = proj
+    clone(user, proj, path)
+    install_gem(user, proj, path)
+  end
+
+  def install_gem user, proj, path
     cwd = Dir.pwd
     Dir.chdir path
+    sh 'rake clobber'
     sh 'rake gem:package'
     sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
   ensure

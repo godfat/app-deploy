@@ -5,6 +5,7 @@ $ rake -T app
 rake app:deploy              # deploy to master state
 rake app:deploy:after        # after deploy hook for you to override
 rake app:deploy:before       # before deploy hook for you to override
+rake app:gem:reinstall       # reinstall gems from github
 rake app:git:gc              # git gc
 rake app:git:pull            # pull anything from origin
 rake app:git:reset           # make anything reflect master state
@@ -33,7 +34,7 @@ rescue NameError
   # install app-deploy
   path = 'lib/tasks/app-deploy'
   `git clone git://github.com/godfat/app-deploy.git #{path}`
-  require 'lib/tasks/app-deploy/app-deploy.rake'
+  load "#{path}/app-deploy.rake"
 
 ensure
   AppDeploy.dependency_gem 'godfat', 'thumbo'
