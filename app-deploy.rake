@@ -14,8 +14,12 @@ end
 module AppDeploy
   module_function
   def install user, proj, path = proj
-    sh "git clone git://github.com/#{user}/#{proj}.git #{path}"
-    sh "git --git-dir #{path}/.git gc"
+    if File.exist?(path)
+      puts "skip #{proj} because #{path} exists"
+    else
+      sh "git clone git://github.com/#{user}/#{proj}.git #{path}"
+      sh "git --git-dir #{path}/.git gc"
+    end
   end
 
   def install_gem user, proj, path = proj
