@@ -10,8 +10,15 @@ namespace :app do
     task :default => [:before, :do_install, :after]
 
     task :do_install do
-      AppDeploy.dep.each{ |dep| AppDeploy.install(    *dep) }
-      AppDeploy.gem.each{ |dep| AppDeploy.install_gem(*dep) }
+      AppDeploy.dep.each{ |dep|
+        puts "installing #{dep[1]}..."
+        AppDeploy.install(*dep)
+      }
+
+      AppDeploy.gem.each{ |dep|
+        puts "installing #{dep[1]}..."
+        AppDeploy.install_gem(*dep)
+      }
     end
 
   end # of install
