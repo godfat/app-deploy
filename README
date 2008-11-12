@@ -1,4 +1,4 @@
-example:
+tasks:
 
 $ rake -T app
 (in /home/photos)
@@ -25,30 +25,29 @@ rake app:thin:stop           # stop the thin cluster
 
 
 
-Rakefile:
+example Rakefile:
 
-begin
-  AppDeploy
-
-rescue NameError
+unless defined?(AppDeploy)
   # install app-deploy
   path = 'lib/tasks/app-deploy'
   `git clone git://github.com/godfat/app-deploy.git #{path}`
-  load "#{path}/app-deploy.rake"
-
-ensure
-  AppDeploy.dependency_gem 'godfat', 'thumbo'
-  AppDeploy.dependency_gem 'godfat', 'friendly_format'
-  AppDeploy.dependency     'godfat', 'in_place_editing', 'vendor/plugins/in_place_editing'
-  AppDeploy.dependency     'godfat', 'app-deploy', 'lib/tasks/app-deploy'
-
+  puts "Please re-invoke: rake #{ARGV.join(' ')}"
+  exit(1)
 end
+
+AppDeploy.dependency_gem 'godfat', 'thumbo'
+AppDeploy.dependency_gem 'godfat', 'friendly_format'
+AppDeploy.dependency     'godfat', 'in_place_editing', 'vendor/plugins/in_place_editing'
+AppDeploy.dependency     'godfat', 'app-deploy', 'lib/tasks/app-deploy'
 
 namespace :app do
   namespace :install do
     task :before do
       sh 'gem install bones'
     end
+  end
 
+  namespace :server do
+    task :restart => ['nginx:restart', 'thin:restart']
   end
 end
