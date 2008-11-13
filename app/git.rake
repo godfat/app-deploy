@@ -20,7 +20,7 @@ namespace :app do
         puts "pulling #{opts[:github_project]}..."
         sh 'git pull'
       }
-      sh 'git pull' if `git remote` != ''
+      sh 'git pull' if `git remote` =~ /^origin$/
     end
 
     desc 'git gc'
