@@ -4,7 +4,7 @@ namespace :app do
 
     desc 'reinstall gems from github'
     task :reinstall do
-      AppDeploy.gem.each{ |dep| AppDeploy.install_gem(*dep) }
+      AppDeploy.gem.each{ |opts| AppDeploy.install_gem(opts) }
     end
 
   end # of server

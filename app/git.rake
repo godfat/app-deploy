@@ -4,8 +4,8 @@ namespace :app do
 
     desc 'make anything reflect master state'
     task :reset do
-      AppDeploy.each{ |dep|
-        puts "resetting #{dep[1]}..."
+      AppDeploy.each{ |opts|
+        puts "resetting #{opts[:github_project]}..."
         sh 'git stash' # oops, save your work first.
         sh 'git reset --hard'
       }
@@ -16,8 +16,8 @@ namespace :app do
 
     desc 'pull anything from origin'
     task :pull do
-      AppDeploy.each{ |dep|
-        puts "pulling #{dep[1]}..."
+      AppDeploy.each{ |opts|
+        puts "pulling #{opts[:github_project]}..."
         sh 'git pull'
       }
       sh 'git pull' if `git remote` != ''
@@ -25,8 +25,8 @@ namespace :app do
 
     desc 'git gc'
     task :gc do
-      AppDeploy.each{ |dep|
-        puts "garbage collecting #{dep[1]}..."
+      AppDeploy.each{ |opts|
+        puts "garbage collecting #{opts[:github_project]}..."
         sh 'git gc'
       }
       sh 'git gc'

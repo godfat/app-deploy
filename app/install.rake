@@ -11,13 +11,13 @@ namespace :app do
 
     task :do_install do
       AppDeploy.dep.each{ |dep|
-        puts "installing #{dep[1]}..."
-        AppDeploy.clone(*dep)
+        puts "installing #{dep[:github_project]}..."
+        AppDeploy.clone(dep)
       }
 
       AppDeploy.gem.each{ |dep|
-        puts "installing #{dep[1]}..."
-        AppDeploy.clone_gem(*dep)
+        puts "installing #{dep[:github_project]}..."
+        AppDeploy.clone_gem(dep)
       }
     end
 
