@@ -1,5 +1,5 @@
 
-Dir["#{Dir.pwd}/app/*.rake"].each{ |rake|
+Dir["#{File.dirname(__FILE__)}/app/*.rake"].each{ |rake|
   load rake
 }
 
