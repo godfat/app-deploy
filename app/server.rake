@@ -2,8 +2,8 @@
 namespace :app do
   namespace :server do
 
-    desc 'override it if you don\'t use thin'
-    task :restart => 'thin:restart'
+    desc 'please define your server:restart task'
+    task :restart => ''
 
   end # of server
 end # of app

@@ -8,8 +8,6 @@ namespace :app do
     task :after
 
     task :default => [:before, 'git:reset',
-                               'git:pull',
-                               'gem:reinstall',
                                'server:restart', :after]
 
   end # of deploy
