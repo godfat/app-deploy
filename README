@@ -64,8 +64,11 @@ AppDeploy.dependency     :github_user    => 'godfat',
 namespace :app do
   namespace :install do
     task :before do
-      sh 'gem install bones'
+      sh 'gem install bones --no-ri --no-rdoc' if `gem which bones` =~ /Can't find/
     end
+  end
 
+  namespace :server do
+    task :restart => 'thin:restart'
   end
 end
