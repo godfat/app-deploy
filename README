@@ -2,26 +2,30 @@ tasks:
 
 $ rake -T app
 (in /home/photos)
-rake app:deploy              # deploy to master state
-rake app:deploy:after        # after deploy hook for you to override
-rake app:deploy:before       # before deploy hook for you to override
-rake app:gem:reinstall       # reinstall gems from github
-rake app:git:gc              # git gc
-rake app:git:pull            # pull anything from origin
-rake app:git:reset           # make anything reflect master state
-rake app:install             # install this application
-rake app:install:after       # after install hook for you to override
-rake app:install:before      # before install hook for you to override
-rake app:mongrel:restart     # restart the mongrel cluster
-rake app:mongrel:start       # start the mongrel cluster
-rake app:mongrel:stop        # stop the mongrel cluster
-rake app:nginx:restart       # reload config
-rake app:nginx:start[nginx]  # start nginx, default nginx is /usr/sbin/nginx
-rake app:nginx:stop          # stop nginx
-rake app:server:restart      # override it if you don't use thin
-rake app:thin:restart        # restart the thin cluster
-rake app:thin:start          # start the thin cluster
-rake app:thin:stop           # stop the thin cluster
+rake app:deploy                     # deploy to master state
+rake app:deploy:after               # after deploy hook for you to override
+rake app:deploy:before              # before deploy hook for you to override
+rake app:gem:install                # install gems from github
+rake app:git:clone                  # clone repoitory from github
+rake app:git:gc                     # git gc
+rake app:git:pull                   # pull anything from origin
+rake app:git:reset                  # make anything reflect master state
+rake app:install                    # install this application
+rake app:install:after              # after install hook for you to override
+rake app:install:before             # before install hook for you to override
+rake app:merb:restart               # restart the merb server
+rake app:merb:start[config]         # start the merb server, default config...
+rake app:merb:stop                  # stop the merb server
+rake app:mongrel:restart            # restart the mongrel cluster
+rake app:mongrel:start              # start the mongrel cluster
+rake app:mongrel:stop               # stop the mongrel cluster
+rake app:nginx:restart              # reload config
+rake app:nginx:start[config,nginx]  # start nginx, default config is config...
+rake app:nginx:stop                 # stop nginx
+rake app:server:restart             # please define your server:restart task
+rake app:thin:restart[config]       # restart the thin cluster
+rake app:thin:start[config]         # start the thin cluster
+rake app:thin:stop[config]          # stop the thin cluster
 
 
 
