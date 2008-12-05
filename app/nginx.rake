@@ -16,7 +16,8 @@ namespace :app do
 
     desc 'stop nginx'
     task :stop do
-      sh 'kill -QUIT `cat tmp/pids/nginx.pid`'
+      pid = `cat tmp/pids/nginx.pid`
+      sh "kill -QUIT #{pid}"
     end
 
   end # of nginx
