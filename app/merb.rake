@@ -4,6 +4,7 @@ namespace :app do
 
     desc 'start the merb server, default config: config/merb.yml'
     task :start, :config do |t, args|
+      require 'yaml'
       merb_opt = YAML.load(File.read(args[:config] || 'config/merb.yml')).
         inject([]){ |result, opt_value|
           opt, value = opt_value
