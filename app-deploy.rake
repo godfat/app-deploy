@@ -24,11 +24,6 @@ module AppDeploy
     end
   end
 
-  def clone_gem opts
-    clone(opts)
-    install_gem(opts)
-  end
-
   def install_gem opts
     user, proj, path = opts[:github_user], opts[:github_project], opts[:git_path]
     task = opts[:task_gem]

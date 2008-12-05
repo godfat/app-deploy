@@ -14,13 +14,29 @@ namespace :app do
       sh 'git reset --hard'
     end
 
+    desc 'clone repoitory from github'
+    task :clone do
+      AppDeploy.dep.each{ |dep|
+        puts "cloning #{dep[:github_project]}..."
+        AppDeploy.clone(dep)
+      }
+
+      AppDeploy.gem.each{ |dep|
+        puts "cloning #{dep[:github_project]}..."
+        AppDeploy.clone(dep)
+      }
+    end
+
     desc 'pull anything from origin'
     task :pull do
       AppDeploy.each{ |opts|
         puts "pulling #{opts[:github_project]}..."
         sh 'git pull'
       }
-      sh 'git pull' if `git remote` =~ /^origin$/
+      begin
+        sh 'git pull' if `git remote` =~ /^origin$/
+      rescue RuntimeError
+      end
     end
 
     desc 'git gc'
