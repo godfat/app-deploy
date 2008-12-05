@@ -17,7 +17,7 @@ namespace :app do
 
     desc 'stop the merb server'
     task :stop do
-      sh 'merb -K'
+      sh 'merb -K all'
     end
 
     desc 'restart the merb server'
