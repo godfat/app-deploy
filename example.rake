@@ -1,4 +1,6 @@
 
+require 'rubygems'
+
 begin
   require 'app-deploy'
 

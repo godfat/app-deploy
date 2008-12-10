@@ -3,14 +3,6 @@
   load "app-deploy/#{task}.rake"
 }
 
-namespace :app do
-  desc 'deploy to master state'
-  task :deploy => 'deploy:default'
-
-  desc 'install this application'
-  task :install => 'install:default'
-end
-
 module AppDeploy
   module_function
   def clone opts

@@ -1,5 +1,9 @@
 
 namespace :app do
+
+  desc 'install this application'
+  task :install => 'install:default'
+
   namespace :install do
     desc 'before install hook for you to override'
     task :before
