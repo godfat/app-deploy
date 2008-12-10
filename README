@@ -14,13 +14,13 @@ rake app:install                    # install this application
 rake app:install:after              # after install hook for you to override
 rake app:install:before             # before install hook for you to override
 rake app:merb:restart               # restart the merb server
-rake app:merb:start[config]         # start the merb server, default config...
+rake app:merb:start[config]         # start the merb server, default config: config/merb.yml
 rake app:merb:stop                  # stop the merb server
 rake app:mongrel:restart            # restart the mongrel cluster
 rake app:mongrel:start              # start the mongrel cluster
 rake app:mongrel:stop               # stop the mongrel cluster
 rake app:nginx:restart              # reload config
-rake app:nginx:start[config,nginx]  # start nginx, default config is config...
+rake app:nginx:start[config,nginx]  # start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx
 rake app:nginx:stop                 # stop nginx
 rake app:server:restart             # please define your server:restart task
 rake app:thin:restart[config]       # restart the thin cluster
