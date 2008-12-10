@@ -61,10 +61,18 @@ module AppDeploy
     cwd = Dir.pwd
 
     (AppDeploy.dep + AppDeploy.gem).each{ |opts|
-      Dir.chdir opts[:git_path]
+      puts
+      if File.directory?(opts[:git_path])
+        Dir.chdir opts[:git_path]
+      else
+        puts "skipping #{opts[:github_project]}, because it was not found."
+        next
+      end
 
       begin
         yield(opts)
+      rescue RuntimeError => e
+        puts e
       ensure
         Dir.chdir cwd
       end
