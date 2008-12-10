@@ -1,0 +1,16 @@
+CHANGES
+README
+Rakefile
+app-deploy.gemspec
+example.rake
+lib/app-deploy.rb
+lib/app-deploy/deploy.rake
+lib/app-deploy/gem.rake
+lib/app-deploy/git.rake
+lib/app-deploy/install.rake
+lib/app-deploy/merb.rake
+lib/app-deploy/mongrel.rake
+lib/app-deploy/nginx.rake
+lib/app-deploy/server.rake
+lib/app-deploy/thin.rake
+lib/app-deploy/version.rb

@@ -1,6 +1,6 @@
 
-Dir["#{File.dirname(__FILE__)}/app/*.rake"].each{ |rake|
-  load rake
+%w[deploy gem git install merb mongrel nginx server thin].each{ |task|
+  load "app-deploy/#{task}.rake"
 }
 
 namespace :app do
