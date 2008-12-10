@@ -1,5 +1,28 @@
 
 namespace :app do
+
+  desc 'generic git cmd walk through all dependency'
+  task :git, :cmd do |t, args|
+    cmd = args[:cmd] || 'status'
+
+    puts "invoking git #{cmd}..."
+    begin
+      sh "git #{cmd}"
+    rescue RuntimeError => e
+      puts e
+    end
+
+    AppDeploy.each{ |opts|
+      puts "invoking git #{cmd} on #{opts[:github_project]}..."
+      begin
+        sh "git #{cmd}"
+      rescue RuntimeError => e
+        puts e
+      end
+    }
+
+  end
+
   namespace :git do
 
     desc 'make anything reflect master state'
