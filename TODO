@@ -1,0 +1,14 @@
+= app-deploy todo list
+
+* config to install other gems
+  e.g.
+
+  %w[ bones rails mysql rack thin
+      rmagick rubycas-client hpricot
+      dm-core dm-types dm-timestamps
+      will_paginate extlib ].each{ |dep|
+
+    if `gem list '^#{dep}$'` !~ /^#{dep}/
+      sh "gem install #{dep} --no-ri --no-rdoc"
+    end
+  }
