@@ -21,11 +21,35 @@ module AppDeploy
   end
 
   def install_gem opts
-    user, proj, path = opts[:github_user], opts[:github_project], opts[:git_path]
-    task = opts[:task_gem]
+    gem_name = opts[:gem] || opts[:github_project]
 
-    cwd = Dir.pwd
-    Dir.chdir path
+    if AppDeploy.installed_gem?(gem_name)
+      puts "Skip #{gem_name} because it was installed. Uninstall first if you want to reinstall"
+
+    else
+      if opts[:gem]
+        AppDeploy.install_gem_rubyforge(opts[:gem])
+      else
+        AppDeploy.install_gem_github(opts[:github_project], opts[:task_gem])
+      end
+
+    end
+  end
+
+  def uninstall_gem opts
+    gem_name = opts[:gem] || opts[:github_project]
+    if AppDeploy.installed_gem?(gem_name)
+      sh "gem uninstall #{gem_name}"
+    else
+      puts "Skip #{gem_name} because it was not installed"
+    end
+  end
+
+  def install_gem_rubyforge gem_name
+    sh "gem install #{gem_name} --no-ri --no-rdoc"
+  end
+
+  def install_gem_github proj, task
     case task
       when 'bones'
         sh 'rake clobber'
@@ -39,44 +63,51 @@ module AppDeploy
       when Proc
         task.call
     end
-
-  ensure
-    Dir.chdir cwd
   end
 
-  def dep; @dep ||= []; end
+  def github; @github ||= []; end
   def dependency opts = {}
     opts = opts.dup
     opts[:git_path] ||= opts[:github_project]
-
-    dep << opts.freeze
+    github << opts.freeze
   end
 
   def gem; @gem ||= []; end
   def dependency_gem opts = {}, &block
     opts = opts.dup
-    opts[:git_path] ||= opts[:github_project]
 
-    opts[:task_gem] = block if block_given?
+    if opts[:github_project]
+      opts[:git_path] ||= opts[:github_project]
+      opts[:task_gem] = block if block_given?
+      github << opts.freeze
+    end
+
     gem << opts.freeze
   end
 
-  def each
+  def each *with
+    with = [:github, :gem] if with.empty?
     cwd = Dir.pwd
 
-    (AppDeploy.dep + AppDeploy.gem).each{ |opts|
+    # github's gem would be in @github and @gem,
+    # so call uniq to ensure it wouldn't get called twice.
+    with.map{ |kind| AppDeploy.send(kind) }.flatten.uniq.each{ |opts|
       puts
-      if File.directory?(opts[:git_path])
-        Dir.chdir opts[:git_path]
-      else
-        puts "skipping #{opts[:github_project]}, because it was not found."
-        next
-      end
 
       begin
+        if opts[:github_project]
+          if File.directory?(opts[:git_path])
+            Dir.chdir(opts[:git_path])
+          else
+            puts "Skip #{opts[:github_project]}, because it was not found"
+          end
+        end
+
         yield(opts)
+
       rescue RuntimeError => e
         puts e
+
       ensure
         Dir.chdir(cwd)
 

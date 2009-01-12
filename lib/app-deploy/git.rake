@@ -12,8 +12,8 @@ namespace :app do
       puts e
     end
 
-    AppDeploy.each{ |opts|
-      puts "invoking git #{cmd} on #{opts[:github_project]}..."
+    AppDeploy.each(:github){ |opts|
+      puts "Invoking git #{cmd} on #{opts[:github_project]}..."
       begin
         sh "git #{cmd}"
       rescue RuntimeError => e
@@ -31,8 +31,8 @@ namespace :app do
       sh 'git stash' # oops, save your work first.
       sh 'git reset --hard'
 
-      AppDeploy.each{ |opts|
-        puts "resetting #{opts[:github_project]}..."
+      AppDeploy.each(:github){ |opts|
+        puts "Resetting #{opts[:github_project]}..."
         sh 'git stash' # oops, save your work first.
         sh 'git reset --hard'
       }
@@ -40,13 +40,8 @@ namespace :app do
 
     desc 'clone repoitory from github'
     task :clone do
-      AppDeploy.dep.each{ |dep|
-        puts "cloning #{dep[:github_project]}..."
-        AppDeploy.clone(dep)
-      }
-
-      AppDeploy.gem.each{ |dep|
-        puts "cloning #{dep[:github_project]}..."
+      AppDeploy.github.each{ |dep|
+        puts "Cloning #{dep[:github_project]}..."
         AppDeploy.clone(dep)
       }
     end
@@ -60,8 +55,8 @@ namespace :app do
         puts e
       end
 
-      AppDeploy.each{ |opts|
-        puts "pulling #{opts[:github_project]}..."
+      AppDeploy.each(:github){ |opts|
+        puts "Pulling #{opts[:github_project]}..."
         sh 'git pull'
       }
     end
@@ -71,8 +66,8 @@ namespace :app do
       puts 'Garbage collecting...'
       sh 'git gc'
 
-      AppDeploy.each{ |opts|
-        puts "garbage collecting #{opts[:github_project]}..."
+      AppDeploy.each(:github){ |opts|
+        puts "Garbage collecting #{opts[:github_project]}..."
         sh 'git gc'
       }
     end

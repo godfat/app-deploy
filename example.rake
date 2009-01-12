@@ -25,7 +25,10 @@ task :default do
   Rake.application.display_tasks_and_comments
 end
 
-# install gem callback
+# install gem from rubyforge
+AppDeploy.dependency_gem :gem            => 'hoe'
+
+# install gem from github with callback
 AppDeploy.dependency_gem :github_user    => 'godfat',
                          :github_project => 'app-deploy',
                          :git_path       => 'tmp/app-deploy' do
@@ -55,7 +58,14 @@ namespace :app do
   namespace :install do
     # before install hook
     task :before do
-      sh 'gem install bones --no-ri --no-rdoc' if `gem which bones` =~ /Can't find/
+      # explicit install gem
+      AppDeploy.install_gem(:gem => 'bones')
+    end
+
+    # after install hook
+    task :after do
+      # explicit uninstall gem
+      AppDeploy.uninstall_gem(:gem => 'bones')
     end
   end
 
