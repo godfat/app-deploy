@@ -5,66 +5,6 @@
 
 module AppDeploy
   module_function
-  def clone opts
-    user, proj, path = opts[:github_user], opts[:github_project], opts[:git_path]
-
-    if File.exist?(path)
-      puts "Skip #{proj} because #{path} exists"
-    else
-      sh "git clone git://github.com/#{user}/#{proj}.git #{path}"
-      sh "git --git-dir #{path}/.git gc"
-    end
-  end
-
-  def installed_gem? gem_name
-    `gem list '^#{gem_name}$'` =~ /^#{gem_name}/
-  end
-
-  def install_gem opts
-    gem_name = opts[:gem] || opts[:github_project]
-
-    if AppDeploy.installed_gem?(gem_name)
-      puts "Skip #{gem_name} because it was installed. Uninstall first if you want to reinstall"
-
-    else
-      if opts[:gem]
-        AppDeploy.install_gem_rubyforge(opts[:gem])
-      else
-        AppDeploy.install_gem_github(opts[:github_project], opts[:task_gem])
-      end
-
-    end
-  end
-
-  def uninstall_gem opts
-    gem_name = opts[:gem] || opts[:github_project]
-    if AppDeploy.installed_gem?(gem_name)
-      sh "gem uninstall #{gem_name}"
-    else
-      puts "Skip #{gem_name} because it was not installed"
-    end
-  end
-
-  def install_gem_rubyforge gem_name
-    sh "gem install #{gem_name} --no-ri --no-rdoc"
-  end
-
-  def install_gem_github proj, task
-    case task
-      when 'bones'
-        sh 'rake clobber'
-        sh 'rake gem:package'
-        sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
-
-      when 'hoe'
-        sh 'rake gem'
-        sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
-
-      when Proc
-        task.call
-    end
-  end
-
   def github; @github ||= []; end
   def dependency opts = {}
     opts = opts.dup
@@ -115,6 +55,69 @@ module AppDeploy
     }
   end
 
+  # about git
+  def clone opts
+    user, proj, path = opts[:github_user], opts[:github_project], opts[:git_path]
+
+    if File.exist?(path)
+      puts "Skip #{proj} because #{path} exists"
+    else
+      sh "git clone git://github.com/#{user}/#{proj}.git #{path}"
+      sh "git --git-dir #{path}/.git gc"
+    end
+  end
+
+  # about gem
+  def installed_gem? gem_name
+    `gem list '^#{gem_name}$'` =~ /^#{gem_name}/
+  end
+
+  def install_gem opts
+    gem_name = opts[:gem] || opts[:github_project]
+
+    if AppDeploy.installed_gem?(gem_name)
+      puts "Skip #{gem_name} because it was installed. Uninstall first if you want to reinstall"
+
+    else
+      if opts[:gem]
+        AppDeploy.install_gem_rubyforge(opts[:gem])
+      else
+        AppDeploy.install_gem_github(opts[:github_project], opts[:task_gem])
+      end
+
+    end
+  end
+
+  def uninstall_gem opts
+    gem_name = opts[:gem] || opts[:github_project]
+    if AppDeploy.installed_gem?(gem_name)
+      sh "gem uninstall #{gem_name}"
+    else
+      puts "Skip #{gem_name} because it was not installed"
+    end
+  end
+
+  def install_gem_rubyforge gem_name
+    sh "gem install #{gem_name} --no-ri --no-rdoc"
+  end
+
+  def install_gem_github proj, task
+    case task
+      when 'bones'
+        sh 'rake clobber'
+        sh 'rake gem:package'
+        sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
+
+      when 'hoe'
+        sh 'rake gem'
+        sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
+
+      when Proc
+        task.call
+    end
+  end
+
+  # about sending signal
   def read_pid pid_path
     if File.exist?(pid_path)
       File.read(pid_path).strip.to_i
