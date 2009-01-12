@@ -80,7 +80,7 @@ module AppDeploy
 
     else
       if opts[:gem]
-        AppDeploy.install_gem_remote(opts[:gem])
+        AppDeploy.install_gem_remote(opts[:gem], opts[:source])
       else
         AppDeploy.install_gem_local(opts[:github_project], opts[:task_gem])
       end
