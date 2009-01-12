@@ -11,13 +11,14 @@ namespace :app do
 
     desc 'reload config'
     task :restart do
-      sh 'kill -HUP `cat tmp/pids/nginx.pid`'
+      # sh 'kill -HUP `cat tmp/pids/nginx.pid`'
+      Process.kill('HUP', File.read('tmp/pids/nginx.pid').strip.to_i)
     end
 
     desc 'stop nginx'
     task :stop do
-      pid = `cat tmp/pids/nginx.pid`
-      sh "kill -QUIT #{pid}"
+      # sh "kill -TERM `cat tmp/pids/nginx.pid`"
+      Process.kill('TERM', File.read('tmp/pids/nginx.pid').strip.to_i)
     end
 
   end # of nginx
