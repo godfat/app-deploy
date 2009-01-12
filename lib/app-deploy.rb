@@ -16,6 +16,10 @@ module AppDeploy
     end
   end
 
+  def installed_gem? gem_name
+    `gem list '^#{gem_name}$'` =~ /^#{gem_name}/
+  end
+
   def install_gem opts
     user, proj, path = opts[:github_user], opts[:github_project], opts[:git_path]
     task = opts[:task_gem]
@@ -74,7 +78,8 @@ module AppDeploy
       rescue RuntimeError => e
         puts e
       ensure
-        Dir.chdir cwd
+        Dir.chdir(cwd)
+
       end
     }
   end
