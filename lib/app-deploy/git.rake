@@ -5,7 +5,7 @@ namespace :app do
   task :git, :cmd do |t, args|
     cmd = args[:cmd] || 'status'
 
-    puts "invoking git #{cmd}..."
+    puts "Invoking git #{cmd}..."
     begin
       sh "git #{cmd}"
     rescue RuntimeError => e
@@ -27,7 +27,7 @@ namespace :app do
 
     desc 'make anything reflect master state'
     task :reset do
-      puts 'resetting...'
+      puts 'Resetting...'
       sh 'git stash' # oops, save your work first.
       sh 'git reset --hard'
 
@@ -53,7 +53,7 @@ namespace :app do
 
     desc 'pull anything from origin'
     task :pull do
-      puts 'pulling...'
+      puts 'Pulling...'
       begin
         sh 'git pull' if `git remote` =~ /^origin$/
       rescue RuntimeError => e
@@ -68,7 +68,7 @@ namespace :app do
 
     desc 'git gc'
     task :gc do
-      puts 'garbage collecting...'
+      puts 'Garbage collecting...'
       sh 'git gc'
 
       AppDeploy.each{ |opts|

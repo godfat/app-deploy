@@ -46,12 +46,14 @@ AppDeploy.dependency_gem :github_user    => 'godfat',
                          :task_gem       => 'hoe',
                          :git_path       => 'tmp/mogilefs-client'
 
+# no gem to install, just clone it
 AppDeploy.dependency     :github_user    => 'godfat',
                          :github_project => 'in_place_editing',
                          :git_path       => 'tmp/vendor/plugins/in_place_editing'
 
 namespace :app do
   namespace :install do
+    # before install hook
     task :before do
       sh 'gem install bones --no-ri --no-rdoc' if `gem which bones` =~ /Can't find/
     end

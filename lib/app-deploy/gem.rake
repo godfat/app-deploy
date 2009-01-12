@@ -2,7 +2,7 @@
 namespace :app do
   namespace :gem do
 
-    desc 'install gems from github'
+    desc 'install gems'
     task :install do
       AppDeploy.gem.each{ |dep|
         puts "installing #{dep[:github_project]}..."

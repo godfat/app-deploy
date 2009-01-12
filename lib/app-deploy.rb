@@ -9,7 +9,7 @@ module AppDeploy
     user, proj, path = opts[:github_user], opts[:github_project], opts[:git_path]
 
     if File.exist?(path)
-      puts "skip #{proj} because #{path} exists"
+      puts "Skip #{proj} because #{path} exists"
     else
       sh "git clone git://github.com/#{user}/#{proj}.git #{path}"
       sh "git --git-dir #{path}/.git gc"
@@ -23,16 +23,16 @@ module AppDeploy
     cwd = Dir.pwd
     Dir.chdir path
     case task
-      when 'bones';
+      when 'bones'
         sh 'rake clobber'
         sh 'rake gem:package'
         sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
 
-      when 'hoe';
+      when 'hoe'
         sh 'rake gem'
         sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
 
-      when Proc;
+      when Proc
         task.call
     end
 
