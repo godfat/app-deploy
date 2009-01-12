@@ -5,7 +5,10 @@ $ rake -T app
 rake app:deploy                     # deploy to master state
 rake app:deploy:after               # after deploy hook for you to override
 rake app:deploy:before              # before deploy hook for you to override
-rake app:gem:install                # install gems from github
+rake app:gem:install                # install gems
+rake app:gem:reinstall              # reinstall gems
+rake app:gem:uninstall              # uninstall gems
+rake app:git[cmd]                   # generic git cmd walk through all dependency
 rake app:git:clone                  # clone repoitory from github
 rake app:git:gc                     # git gc
 rake app:git:pull                   # pull anything from origin
@@ -21,7 +24,7 @@ rake app:mongrel:start              # start the mongrel cluster
 rake app:mongrel:stop               # stop the mongrel cluster
 rake app:nginx:restart              # reload config
 rake app:nginx:start[config,nginx]  # start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx
-rake app:nginx:stop                 # stop nginx
+rake app:nginx:stop[timeout]        # stop nginx
 rake app:server:restart             # please define your server:restart task
 rake app:thin:restart[config]       # restart the thin cluster
 rake app:thin:start[config]         # start the thin cluster
@@ -29,4 +32,4 @@ rake app:thin:stop[config]          # stop the thin cluster
 
 
 
-example Rakefile: see example.rake
+example: see example.rake
