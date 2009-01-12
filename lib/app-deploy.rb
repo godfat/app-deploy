@@ -55,6 +55,19 @@ module AppDeploy
     }
   end
 
+  def extract_config config
+    require 'yaml'
+    YAML.load(File.read(config)).inject([]){ |result, opt_value|
+      opt, value = opt_value
+      if block_given?
+        result << yield(opt, value)
+      else
+        result << "--#{opt} #{value}"
+      end
+      result
+    }.compact.join(' ')
+  end
+
   # about git
   def clone opts
     user, proj, path = opts[:github_user], opts[:github_project], opts[:git_path]

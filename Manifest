@@ -1,6 +1,7 @@
 CHANGES
 README
 Rakefile
+TODO
 app-deploy.gemspec
 example.rake
 lib/app-deploy.rb

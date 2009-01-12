@@ -1,1 +1,4 @@
 = app-deploy todo list
+
+* escape \" and \' in options?
+* extract rack-cluster

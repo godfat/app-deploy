@@ -4,15 +4,7 @@ namespace :app do
 
     desc 'start the merb server, default config: config/merb.yml'
     task :start, :config do |t, args|
-      require 'yaml'
-      merb_opt = YAML.load(File.read(args[:config] || 'config/merb.yml')).
-        inject([]){ |result, opt_value|
-          opt, value = opt_value
-          result << "--#{opt} #{value}"
-          result
-        }.join(' ')
-
-      sh "merb #{merb_opt}"
+      sh "merb #{AppDeploy.extract_config(args[:config] || 'config/merb.yml')}"
     end
 
     desc 'stop the merb server'
