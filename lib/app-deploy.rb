@@ -80,9 +80,9 @@ module AppDeploy
 
     else
       if opts[:gem]
-        AppDeploy.install_gem_rubyforge(opts[:gem])
+        AppDeploy.install_gem_remote(opts[:gem])
       else
-        AppDeploy.install_gem_github(opts[:github_project], opts[:task_gem])
+        AppDeploy.install_gem_local(opts[:github_project], opts[:task_gem])
       end
 
     end
@@ -97,11 +97,11 @@ module AppDeploy
     end
   end
 
-  def install_gem_rubyforge gem_name
-    sh "gem install #{gem_name} --no-ri --no-rdoc"
+  def install_gem_remote gem_name, source = nil
+    sh "gem install #{gem_name} --no-ri --no-rdoc#{source ? ' --source' + source : ''}"
   end
 
-  def install_gem_github proj, task
+  def install_gem_local proj, task
     case task
       when 'bones'
         sh 'rake clobber'
