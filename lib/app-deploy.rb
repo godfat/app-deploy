@@ -1,5 +1,5 @@
 
-%w[deploy gem git install merb mongrel nginx server thin].each{ |task|
+%w[deploy gem git install merb mongrel nginx server thin rack].each{ |task|
   load "app-deploy/#{task}.rake"
 }
 
