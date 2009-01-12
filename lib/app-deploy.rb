@@ -79,4 +79,48 @@ module AppDeploy
     }
   end
 
+  def read_pid pid_path
+    if File.exist?(pid_path)
+      File.read(pid_path).strip.to_i
+
+    else
+      puts "WARN: No pid file found in #{pid_path}"
+      nil
+
+    end
+  end
+
+  def hup pid_path, name = nil
+    if pid = AppDeploy.read_pid(pid_path)
+      puts "Sending HUP to #{name}(#{pid})..."
+      Process.kill('HUP', pid)
+    end
+  end
+
+  def term pid_path, name = nil, limit = 5
+    if pid = AppDeploy.read_pid(pid_path)
+      puts "Sending TERM to #{name}(#{pid})..."
+
+    else
+      return
+
+    end
+
+    require 'timeout'
+    begin
+      timeout(limit){
+        while true
+          Process.kill('TERM', pid)
+          sleep(0.1)
+        end
+      }
+    rescue Errno::ESRCH
+      puts "Killed #{name}(#{pid})"
+
+    rescue Timeout::Error
+      puts "Timeout(#{limit}) killing #{name}(#{pid})"
+
+    end
+  end
+
 end
