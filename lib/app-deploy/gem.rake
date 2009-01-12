@@ -21,5 +21,5 @@ namespace :app do
     desc 'reinstall gems'
     task :reinstall => [:uninstall, :install]
 
-  end # of server
+  end # of gem
 end # of app
