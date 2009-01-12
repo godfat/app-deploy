@@ -25,6 +25,9 @@ rake app:mongrel:stop               # stop the mongrel cluster
 rake app:nginx:restart              # reload config
 rake app:nginx:start[config,nginx]  # start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx
 rake app:nginx:stop[timeout]        # stop nginx
+rake app:rack:restart[config]       # restart the rack cluster
+rake app:rack:start[config]         # start the rack cluster
+rake app:rack:stop[config]          # stop the rack cluster
 rake app:server:restart             # please define your server:restart task
 rake app:thin:restart[config]       # restart the thin cluster
 rake app:thin:start[config]         # start the thin cluster
