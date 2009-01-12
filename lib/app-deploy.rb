@@ -134,6 +134,9 @@ module AppDeploy
       puts "Sending HUP to #{name}(#{pid})..."
       Process.kill('HUP', pid)
     end
+  rescue Errno::ESRCH
+    puts "WARN: No such pid: #{pid}, removing #{pid_path}..."
+    File.delete(pid_path)
   end
 
   def term pid_path, name = nil, limit = 5
@@ -154,7 +157,12 @@ module AppDeploy
         end
       }
     rescue Errno::ESRCH
-      puts "Killed #{name}(#{pid})"
+      if File.exist?(pid_path)
+        puts "WARN: No such pid: #{pid}, removing #{pid_path}..."
+        File.delete(pid_path)
+      else
+        puts "Killed #{name}(#{pid})"
+      end
 
     rescue Timeout::Error
       puts "Timeout(#{limit}) killing #{name}(#{pid})"
