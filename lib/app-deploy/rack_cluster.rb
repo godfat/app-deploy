@@ -5,7 +5,8 @@ module RackCluster
     config_orig = {}
     rack_opts = AppDeploy.extract_config(path){ |opt, value|
       case opt
-        when 'environment'; "--env #{value}"
+        when 'environment'
+          "--env #{value}"
 
         when *%w[server host]
           config_orig[opt.to_sym] = value
@@ -21,30 +22,22 @@ module RackCluster
       end
     }
 
+    args = [:pid, :log, :user, :group, :chdir].map{ |kind|
+      config.send(:[], kind)
+    }.join("', '")
+
+    init_script = "RackDaemon.daemonize('#{args}')"
+    ruby_opts   = " -r rubygems -r app-deploy/rack_daemon -e \"#{init_script}\""
+
     config_orig[:servers].times{ |n|
       config = config_orig.dup
-      ruby_opts = ''
-      rack_opts = ''
 
-      config[:port] += n if config[:port]
-      config[:pid]   = RackCluster.pid_path(config[:pid], config[:port])
+      config[:port] += n
+      config[:pid] = RackCluster.pid_path(config[:pid], config[:port])
+      config[:log] = RackCluster.log_path(config[:log], config[:port])
 
-      if config[:daemonize]
-        config[:log] = RackCluster.log_path(config[:log], config[:port])
-
-        args = [:pid, :log, :user, :group, :chdir].map{ |kind|
-          config.send(:[], kind)
-        }.join("', '")
-
-        init_script = "RackDaemon.daemonize('#{args}')"
-        rack_daemon = File.dirname(__FILE__) + '/rack_daemon.rb'
-        ruby_opts  += " -r #{rack_daemon} -e \"#{init_script}\""
-      end
-
-      rack_opts += " --port #{config[:port]}" if config[:port]
-      rack_opts += " --pid #{config[:pid]}"   if config[:pid]
-
-      yield(config, ruby_opts, rack_opts)
+      yield( config, ruby_opts,
+             rack_opts + " --port #{config[:port]} --pid #{config[:pid]}" )
     }
 
   end

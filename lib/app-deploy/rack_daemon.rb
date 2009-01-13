@@ -1,5 +1,4 @@
 
-require 'rubygems'
 require 'daemons'
 
 require 'etc'
