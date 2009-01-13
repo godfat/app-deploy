@@ -2,3 +2,5 @@
 
 * escape \" and \' in options?
 * extract rack-cluster
+* detect binding to port succeeded or not
+* fix default options for rack-cluster
