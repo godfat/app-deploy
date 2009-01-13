@@ -23,7 +23,7 @@ module RackCluster
     }
 
     args = [:pid, :log, :user, :group, :chdir].map{ |kind|
-      config.send(:[], kind)
+      config_orig.send(:[], kind)
     }.join("', '")
 
     init_script = "RackDaemon.daemonize('#{args}')"
