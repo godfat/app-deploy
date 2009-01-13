@@ -27,7 +27,7 @@ module RackCluster
     }.join("', '")
 
     init_script = "RackDaemon.daemonize('#{args}')"
-    ruby_opts   = " -r rubygems -r app-deploy/rack_daemon -e \"#{init_script}\""
+    ruby_opts   = "-r rubygems -r app-deploy/rack_daemon -e \"#{init_script}\""
 
     config_orig[:servers].times{ |n|
       config = config_orig.dup
@@ -44,7 +44,7 @@ module RackCluster
 
   def start config, ruby_opts, rack_opts
     puts "Starting #{config[:server]} on #{config[:host]}:#{config[:port]}..."
-    sh "rackup#{ruby_opts}#{rack_opts} #{config[:rackup]}"
+    sh "rackup #{ruby_opts} #{rack_opts} #{config[:rackup]}"
   end
 
   def pid_path path, port
