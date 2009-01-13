@@ -111,7 +111,7 @@ module AppDeploy
   end
 
   def install_gem_remote gem_name, source = nil
-    sh "gem install #{gem_name} --no-ri --no-rdoc#{source ? ' --source' + source : ''}"
+    sh "gem install #{gem_name} --no-ri --no-rdoc#{source ? ' --source ' + source : ''}"
   end
 
   def install_gem_local proj, task
