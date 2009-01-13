@@ -16,7 +16,7 @@ module RackDaemon
     RackDaemon.change_privilege(user, group)
 
     cwd = Dir.pwd
-    Daemonize.daemonize(log_path, 'rack-cluster')
+    Daemonize.daemonize(log_path)
     Dir.chdir(cwd)
 
     RackDaemon.write_pid(pid_path)
