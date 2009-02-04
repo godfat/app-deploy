@@ -43,11 +43,3 @@ task :default do
   Rake.application.options.show_task_pattern = /./
   Rake.application.display_tasks_and_comments
 end
-
-namespace :gem do
-  desc "create #{PROJ.name}.gemspec"
-  task 'gemspec' do
-    puts "rake gem:debug > #{PROJ.name}.gemspec"
-    File.open("#{PROJ.name}.gemspec", 'w'){|spec| spec << `rake gem:debug`.sub(/.*/, '')}
-  end
-end
