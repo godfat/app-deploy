@@ -1,4 +1,17 @@
-tasks:
+= app-deploy 0.5
+by Lin Jen-Shin (a.k.a. godfat-真常[http://godfat.org])
+  godfat (XD) godfat.org
+
+== LINKS:
+
+* github-project[http://github.com/godfat/app-deploy]
+* rubyforge-project[http://rubyforge.org/projects/ludy]
+
+== DESCRIPTION:
+
+ rake tasks for deployment
+
+== FEATURES:
 
 $ rake -T app
 (in /home/photos)
@@ -12,7 +25,7 @@ rake app:git[cmd]                   # generic git cmd walk through all dependenc
 rake app:git:clone                  # clone repoitory from github
 rake app:git:gc                     # git gc
 rake app:git:pull                   # pull anything from origin
-rake app:git:reset                  # make anything reflect master state
+rake app:git:reset[reset_all]       # make anything reflect master state
 rake app:install                    # install this application
 rake app:install:after              # after install hook for you to override
 rake app:install:before             # before install hook for you to override
@@ -33,6 +46,39 @@ rake app:thin:restart[config]       # restart the thin cluster
 rake app:thin:start[config]         # start the thin cluster
 rake app:thin:stop[config]          # stop the thin cluster
 
+== SYNOPSIS:
 
+ see example.rake
 
-example: see example.rake
+== REQUIREMENTS:
+
+* [required] rake
+* [optional] rubygems for rubygems task
+* [optional] git      for git      task
+* [optional] merb     for merb     task
+* [optional] mongrel  for mongrel  task
+* [optional] nginx    for nginx    task
+* [optional] rack and daemons for rack-cluster task
+* [optional] thin     for thin     task
+
+== INSTALL:
+
+* sudo gem install app-deploy
+
+== LICENSE:
+
+Apache License 2.0
+
+Copyright (c) 2008, Lin Jen-Shin (a.k.a. godfat 真常)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
