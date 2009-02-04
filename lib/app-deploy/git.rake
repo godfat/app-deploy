@@ -26,7 +26,7 @@ namespace :app do
   namespace :git do
 
     desc 'make anything reflect master state'
-    task :reset do
+    task :reset, :reset_all do |t, args|
       puts 'Resetting...'
       sh 'git stash' # oops, save your work first.
       sh 'git reset --hard'
@@ -35,7 +35,7 @@ namespace :app do
         puts "Resetting #{opts[:github_project]}..."
         sh 'git stash' # oops, save your work first.
         sh 'git reset --hard'
-      }
+      } if args[:reset_all]
     end
 
     desc 'clone repoitory from github'
