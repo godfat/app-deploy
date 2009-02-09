@@ -6,7 +6,7 @@ require 'fileutils'
 
 module AppDeploy
 
-  module AppDaemon
+  module Daemon
     module_function
     def daemonize pid_path, log_path, user, group, chdir
       Dir.chdir(chdir) if chdir
@@ -14,17 +14,17 @@ module AppDeploy
       user  ||= Etc.getpwuid(Process.uid).name
       group ||= Etc.getpwuid(Process.gid).name
 
-      AppDaemon.change_privilege(user, group)
+      Daemon.change_privilege(user, group)
 
       cwd = Dir.pwd
       ::Daemonize.daemonize(log_path)
       Dir.chdir(cwd)
 
-      AppDaemon.write_pid(pid_path)
+      Daemon.write_pid(pid_path)
 
       at_exit{
         puts "Stopping #{pid_path}..."
-        AppDaemon.remove_pid(pid_path)
+        Daemon.remove_pid(pid_path)
       }
     end
 

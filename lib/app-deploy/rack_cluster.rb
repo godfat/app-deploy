@@ -43,8 +43,8 @@ module AppDeploy
           value ? "'#{value}'" : 'nil'
         }.join(", ")
 
-        init_script = "AppDeploy::AppDaemon.daemonize(#{args})"
-        ruby_opts   = "-r rubygems -r app-deploy/app_daemon -e \"#{init_script}\""
+        init_script = "AppDeploy::Daemon.daemonize(#{args})"
+        ruby_opts   = "-r rubygems -r app-deploy/daemon -e \"#{init_script}\""
 
         yield( config, ruby_opts, rack_opts + " --port #{config[:port]}" )
       }
