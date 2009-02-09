@@ -1,0 +1,9 @@
+---
+pid: tmp/pids/daemon.pid
+log: log/daemon.log
+chdir: /home/photos
+servers: 5
+user: photos
+group: photos
+ruby: ruby
+script: -I lib daemon/bin/cron.rb

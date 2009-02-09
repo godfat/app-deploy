@@ -1,0 +1,12 @@
+---
+pid: tmp/pids/web_server_rack.pid
+log: log/web_server_rack.log
+port: 3000
+chdir: /home/photos
+host: 0.0.0.0
+servers: 5
+user: photos
+group: photos
+rackup: web_server/config.ru
+server: thin
+environment: none

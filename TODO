@@ -1,5 +1,7 @@
 = app-deploy todo list
 
+* adding sending signal to cluster
+
 * escape \" and \' in options?
 * extract rack-cluster
 * detect binding to port succeeded or not

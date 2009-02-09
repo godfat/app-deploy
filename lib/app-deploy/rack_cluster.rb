@@ -41,7 +41,7 @@ module AppDeploy
         args = [:pid, :log, :user, :group, :chdir].map{ |kind|
           value = config.send(:[], kind)
           value ? "'#{value}'" : 'nil'
-        }.join(", ")
+        }.join(', ')
 
         init_script = "AppDeploy::Daemon.daemonize(#{args})"
         ruby_opts   = "-r rubygems -r app-deploy/daemon -e \"#{init_script}\""
@@ -57,18 +57,18 @@ module AppDeploy
     end
 
     def pid_path path, port
-      RackCluster.include_server_number(path, port)
+      RackCluster.with_number(path, port)
     end
 
     def log_path path, port
       # log should expand path since daemons' working dir is different
-      File.expand_path(RackCluster.include_server_number(path, port))
+      File.expand_path(RackCluster.with_number(path, port))
     end
 
     # extracted from thin
     # Add the server port or number in the filename
     # so each instance get its own file
-    def include_server_number path, number
+    def with_number path, number
       ext = File.extname(path)
       path.gsub(/#{ext}$/, ".#{number}#{ext}")
     end

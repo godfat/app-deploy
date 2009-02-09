@@ -48,7 +48,10 @@ rake app:thin:stop[config]          # stop the thin cluster
 
 == SYNOPSIS:
 
- see example.rake
+ see
+   - example/Rakefile
+   - example/rack_cluster.yaml
+   - example/daemon_cluster.yaml
 
 == REQUIREMENTS:
 
