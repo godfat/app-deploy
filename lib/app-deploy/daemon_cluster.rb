@@ -1,5 +1,5 @@
 
-module AppDeply
+module AppDeploy
 
   module DaemonCluster
     module_function
