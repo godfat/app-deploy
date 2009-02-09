@@ -57,18 +57,18 @@ module AppDeploy
     end
 
     def pid_path path, port
-      RackCluster.with_number(path, port)
+      RackCluster.path_with_number(path, port)
     end
 
     def log_path path, port
       # log should expand path since daemons' working dir is different
-      File.expand_path(RackCluster.with_number(path, port))
+      File.expand_path(RackCluster.path_with_number(path, port))
     end
 
     # extracted from thin
     # Add the server port or number in the filename
     # so each instance get its own file
-    def with_number path, number
+    def path_with_number path, number
       ext = File.extname(path)
       path.gsub(/#{ext}$/, ".#{number}#{ext}")
     end
