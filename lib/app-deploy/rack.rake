@@ -7,15 +7,15 @@ namespace :app do
     desc "start the rack cluster"
     task :start, :config do |t, args|
       config = args[:config] || 'config/rack_cluster.yml'
-      RackCluster.each(config){ |config, ruby_opts, rack_opts|
-        RackCluster.start(config, ruby_opts, rack_opts)
+      AppDeploy::RackCluster.each(config){ |config, ruby_opts, rack_opts|
+        AppDeploy::RackCluster.start(config, ruby_opts, rack_opts)
       }
     end
 
     desc "stop the rack cluster"
     task :stop, :config do |t, args|
       config = args[:config] || 'config/rack_cluster.yml'
-      RackCluster.each(config){ |config, ruby_opts, rack_opts|
+      AppDeploy::RackCluster.each(config){ |config, ruby_opts, rack_opts|
         AppDeploy.term(config[:pid], config[:server])
       }
     end
@@ -23,9 +23,9 @@ namespace :app do
     desc "restart the rack cluster"
     task :restart, :config do |t, args|
       config = args[:config] || 'config/rack_cluster.yml'
-      RackCluster.each(config){ |config, ruby_opts, rack_opts|
+      AppDeploy::RackCluster.each(config){ |config, ruby_opts, rack_opts|
         AppDeploy.term(config[:pid], config[:server])
-        RackCluster.start(config, ruby_opts, rack_opts)
+        AppDeploy::RackCluster.start(config, ruby_opts, rack_opts)
         puts
       }
     end
