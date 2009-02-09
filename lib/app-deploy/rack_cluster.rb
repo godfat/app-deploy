@@ -27,8 +27,8 @@ module AppDeploy
       config_orig = { :servers => 1,
                       :port    => 9292,
                       :host    => '0.0.0.0',
-                      :log     => 'log/rack-cluster.log',
-                      :pid     => 'tmp/pids/rack-cluster.pid',
+                      :log     => 'log/rack_cluster.log',
+                      :pid     => 'tmp/pids/rack_cluster.pid',
                       :server  => 'mongrel' }.merge(config_orig)
 
       config_orig[:servers].times{ |n|
