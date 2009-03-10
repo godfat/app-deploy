@@ -14,7 +14,7 @@ module AppDeploy
             config_orig[opt.to_sym] = value
             "--#{opt} #{value}"
 
-          when *%w[user group chdir servers require rackup daemonize port pid log]
+          when *%w[user group chdir servers require rackup daemonize port pid log delay]
             config_orig[opt.to_sym] = value
             nil # rack doesn't have this option
 

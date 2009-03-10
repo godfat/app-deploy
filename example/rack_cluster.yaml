@@ -10,3 +10,4 @@ group: photos
 rackup: web_server/config.ru
 server: thin
 environment: none
+delay: 5
