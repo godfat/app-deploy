@@ -28,15 +28,9 @@ namespace :app do
     task :reset => :stash
 
     desc 'make anything reflect master state'
-    task :stash, :stash_all do |t, args|
+    task :stash do
       puts 'Stashing...'
       sh 'git stash'
-
-      AppDeploy.each(:github){ |opts|
-        puts "Stashing #{opts[:github_project]}..."
-        sh 'git stash'
-
-      } if args[:stash_all]
     end
 
     desc 'clone repoitory from github'
