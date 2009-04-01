@@ -29,7 +29,8 @@ module AppDeploy
                       :host    => '0.0.0.0',
                       :log     => 'log/rack_cluster.log',
                       :pid     => 'tmp/pids/rack_cluster.pid',
-                      :server  => 'mongrel' }.merge(config_orig)
+                      :server  => 'mongrel',
+                      :rackup  => 'config.ru' }.merge(config_orig)
 
       config_orig[:servers].times{ |n|
         config = config_orig.dup
