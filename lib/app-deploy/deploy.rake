@@ -11,7 +11,7 @@ namespace :app do
     desc 'after deploy hook for you to override'
     task :after
 
-    task :default => [:before, 'git:reset',
+    task :default => [:before, 'git:stash',
                                'server:restart', :after]
 
   end # of deploy

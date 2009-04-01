@@ -25,8 +25,10 @@ namespace :app do
 
   namespace :git do
 
+    task :reset => :stash
+
     desc 'make anything reflect master state'
-    task :reset, :reset_all do |t, args|
+    task :stash, :stash_all do |t, args|
       puts 'Stashing...'
       sh 'git stash'
 
@@ -34,7 +36,7 @@ namespace :app do
         puts "Stashing #{opts[:github_project]}..."
         sh 'git stash'
 
-      } if args[:reset_all]
+      } if args[:stash_all]
     end
 
     desc 'clone repoitory from github'
