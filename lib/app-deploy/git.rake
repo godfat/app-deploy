@@ -27,14 +27,13 @@ namespace :app do
 
     desc 'make anything reflect master state'
     task :reset, :reset_all do |t, args|
-      puts 'Resetting...'
-      sh 'git stash' # oops, save your work first.
-      sh 'git reset --hard'
+      puts 'Stashing...'
+      sh 'git stash'
 
       AppDeploy.each(:github){ |opts|
-        puts "Resetting #{opts[:github_project]}..."
-        sh 'git stash' # oops, save your work first.
-        sh 'git reset --hard'
+        puts "Stashing #{opts[:github_project]}..."
+        sh 'git stash'
+
       } if args[:reset_all]
     end
 
