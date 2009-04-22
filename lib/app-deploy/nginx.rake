@@ -10,7 +10,7 @@ namespace :app do
     end
 
     desc 'reload config'
-    task :restart do
+    task :reload do
       # sh 'kill -HUP `cat tmp/pids/nginx.pid`'
       AppDeploy.hup('tmp/pids/nginx.pid', 'nginx')
     end
@@ -20,6 +20,9 @@ namespace :app do
       # sh "kill -TERM `cat tmp/pids/nginx.pid`"
       AppDeploy.term('tmp/pids/nginx.pid', 'nginx', args[:timeout] || 5)
     end
+
+    desc 'restart nginx'
+    task :restart => [:stop, :start]
 
   end # of nginx
 end # of app
