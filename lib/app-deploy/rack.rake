@@ -27,7 +27,6 @@ namespace :app do
         AppDeploy.term(config[:pid], config[:server])
         AppDeploy::RackCluster.start(config, ruby_opts, rack_opts)
         sleep(config[:delay]) if config[:delay]
-        puts
       }
     end
 

@@ -26,7 +26,6 @@ namespace :app do
       AppDeploy::DaemonCluster.each(path){ |config, cmd|
         AppDeploy.term(config[:pid], config[:server])
         AppDeploy::DaemonCluster.start(config, cmd)
-        puts
       }
     end
 

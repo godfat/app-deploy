@@ -37,6 +37,7 @@ module AppDeploy
     def start config, cmd
       puts "Starting ##{config[:num]} #{config[:ruby]} #{config[:script]}..."
       sh cmd
+      puts
     end
 
     def pid_path path, script, number

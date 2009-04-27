@@ -55,6 +55,7 @@ module AppDeploy
     def start config, ruby_opts, rack_opts
       puts "Starting #{config[:server]} on #{config[:host]}:#{config[:port]}..."
       sh "rackup #{ruby_opts} #{rack_opts} #{config[:rackup]}"
+      puts
     end
 
     def pid_path path, port
