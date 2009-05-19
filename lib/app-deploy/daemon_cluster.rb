@@ -19,8 +19,8 @@ module AppDeploy
         config = config_orig.dup
 
         config[:num] = n
-        config[:pid] = DaemonCluster.pid_path(config[:pid], config[:script], n)
-        config[:log] = DaemonCluster.log_path(config[:log], config[:script], n)
+        config[:pid] = DaemonCluster.pid_path(config, n)
+        config[:log] = DaemonCluster.log_path(config, n)
 
         args = [:pid, :log, :user, :group, :chdir].map{ |kind|
           value = config.send(:[], kind)
