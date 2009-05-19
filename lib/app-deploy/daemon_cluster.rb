@@ -30,12 +30,12 @@ module AppDeploy
         init_script = "require 'app-deploy/daemon'; AppDeploy::Daemon.daemonize(#{args});"
         ruby_opts   = "-r rubygems -e \"#{init_script} load('#{config[:script]}')\""
 
-        yield( config, "#{config[:ruby]} #{ruby_opts}" )
+        yield( config, "#{config[:ruby]} #{ruby_opts} #{config[:args]}" )
       }
     end
 
     def start config, cmd
-      puts "Starting ##{config[:num]} #{config[:ruby]} #{config[:script]}..."
+      puts "Starting ##{config[:num]} #{config[:ruby]} #{config[:script]} #{config[:args]}..."
       sh cmd
       puts
     end
