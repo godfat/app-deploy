@@ -40,17 +40,19 @@ module AppDeploy
       puts
     end
 
-    def pid_path path, script, number
-      DaemonCluster.path_with_number(path, script, number)
+    def pid_path config, number
+      path, script, args = config[:pid], config[:script], config[:args]
+      DaemonCluster.path_with_number(path, script, args, number)
     end
 
-    def log_path path, script, number
+    def log_path config, number
       # log should expand path since daemons' working dir is different
-      File.expand_path(DaemonCluster.path_with_number(path, script, number))
+      path, script, args = config[:log], config[:script], config[:args]
+      File.expand_path(DaemonCluster.path_with_number(path, script, args, number))
     end
 
-    def path_with_number path, script, number
-      name = File.basename(script).gsub(/\s+/, '_')
+    def path_with_number path, script, args, number
+      name = File.basename("#{script} #{args}").gsub(/\s+/, '_')
 
       ext = File.extname(path)
       path.gsub(/#{ext}$/, ".#{name}.#{number}#{ext}")
