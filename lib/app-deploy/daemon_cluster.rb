@@ -52,8 +52,8 @@ module AppDeploy
     end
 
     def path_with_number path, script, args, number
-      name = (args ? File.basename("#{script} #{args}")
-                   : File.basename(script)             ).gsub(/\s+/, '_')
+      name = (args ? File.basename("#{script} #{args}") :
+                     File.basename(script)               ).gsub(/\s+/, '_')
 
       ext = File.extname(path)
       path.gsub(/#{ext}$/, ".#{name}.#{number}#{ext}")
