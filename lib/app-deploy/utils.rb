@@ -78,7 +78,7 @@ module AppDeploy
 
   # about gem
   def installed_gem? gem_name
-    `gem list '^#{gem_name}$'` =~ /^#{gem_name}/
+    `#{gem_bin} list '^#{gem_name}$'` =~ /^#{gem_name}/
   end
 
   def install_gem opts
@@ -100,14 +100,14 @@ module AppDeploy
   def uninstall_gem opts
     gem_name = opts[:gem] || opts[:github_project]
     if AppDeploy.installed_gem?(gem_name)
-      sh "gem uninstall #{gem_name}"
+      sh "#{gem_bin} uninstall #{gem_name}"
     else
       puts "Skip #{gem_name} because it was not installed"
     end
   end
 
   def install_gem_remote gem_name, source = nil
-    sh "gem install #{gem_name}#{source ? ' --source ' + source : ''}"
+    sh "#{gem_bin} install #{gem_name}#{source ? ' --source ' + source : ''}"
   end
 
   def install_gem_local proj, task
@@ -115,15 +115,19 @@ module AppDeploy
       when 'bones'
         sh 'rake clobber'
         sh 'rake gem:package'
-        sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
+        sh "#{gem_bin} install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
 
       when 'hoe'
         sh 'rake gem'
-        sh "gem install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
+        sh "#{gem_bin} install --local pkg/#{proj}-*.gem --no-ri --no-rdoc"
 
       when Proc
         task.call
     end
+  end
+
+  def gem_bin
+    Gem.ruby + ' ' + `which gem`.strip
   end
 
   # about sending signal
