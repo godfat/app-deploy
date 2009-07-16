@@ -4,7 +4,10 @@ namespace :app do
 
     desc 'start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx'
     task :start, :config, :nginx do |t, args|
-      if !File.exist?('tmp/pids/nginx.pid')
+      # TODO: extract pid file path
+      if File.exist?('tmp/pids/nginx.pid')
+        puts "WARN: pid file #{'tmp/pids/nginx.pid'} already exists, ignoring."
+      else
         sh "#{args[:nginx] || '/usr/sbin/nginx'} -c #{args[:config] || 'config/nginx.conf'}"
       end
     end
