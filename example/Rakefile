@@ -60,7 +60,7 @@ AppDeploy.dependency     :github_user    => 'godfat',
 %w[ rack rails daemons rmagick passenger
     dm-core dm-types dm-timestamps dm-aggregates
     mogilefs-client memcache-client rubycas-client ].each{ |name|
-  AppDeploy.dependency_gem :gem => name
+  AppDeploy.dependency_gem(:gem => name)
 }
 
 namespace :app do
