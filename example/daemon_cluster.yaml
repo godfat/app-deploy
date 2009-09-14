@@ -7,3 +7,4 @@ user: photos
 group: photos
 ruby: ruby
 script: -I lib daemon/bin/cron.rb
+args: daily
