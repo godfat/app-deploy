@@ -1,23 +1,24 @@
 
-require 'rubygems'
-
 begin
   require 'app-deploy'
-
 rescue LoadError
-
   puts "app-deploy not found, automaticly downloading and installing..."
 
-  `git clone git://github.com/godfat/app-deploy.git tmp/app-deploy`
-  Dir.chdir 'tmp/app-deploy'
+  gem_cmd = "#{Gem.ruby} #{`which gem`.strip}"
+  gem_opt = '--user-install --local --no-ri --no-rdoc'
+  gem_int = "#{gem_cmd} install #{gem_opt}"
+
+  sh "#{gem_int} bones" # need bones to build app-deploy
+
+  sh 'git clone git://github.com/godfat/app-deploy.git app-deploy'
+  Dir.chdir 'app-deploy'
 
   sh 'rake clobber'
   sh 'rake gem:package'
-  sh 'gem install --local pkg/app-deploy-*.gem --no-ri --no-rdoc'
+  sh "#{gem_int} pkg/app-deploy-*.gem"
 
-  puts "Please re-invoke: rake #{ARGV.join(' ')}"
-  exit(1)
-
+  Gem.refresh
+  require 'app-deploy'
 end
 
 task :default do
@@ -49,13 +50,19 @@ AppDeploy.dependency_gem :github_user    => 'godfat',
                          :git_path       => 'tmp/app-deploy' do
   sh 'rake clobber'
   sh 'rake gem:package'
-  sh 'gem install --local pkg/app-deploy-*.gem --no-ri --no-rdoc'
+  sh 'gem install pkg/app-deploy-*.gem'
 end
 
 # no gem to install, just clone it
 AppDeploy.dependency     :github_user    => 'godfat',
                          :github_project => 'in_place_editing',
                          :git_path       => 'tmp/vendor/plugins/in_place_editing'
+
+%w[ rack rails daemons rmagick passenger
+    dm-core dm-types dm-timestamps dm-aggregates
+    mogilefs-client memcache-client rubycas-client ].each{ |name|
+  AppDeploy.dependency_gem :gem => name
+}
 
 namespace :app do
   namespace :install do
@@ -76,4 +83,17 @@ namespace :app do
     # use thin as server
     task :restart => 'thin:restart'
   end
+end
+
+begin # prevent lacking rails to stop rake app:install to install rails
+  gem 'rails'
+
+  require(File.join(File.dirname(__FILE__), 'config', 'boot'))
+
+  require 'rake'
+  require 'rake/testtask'
+  require 'rake/rdoctask'
+
+  require 'tasks/rails'
+rescue LoadError
 end
