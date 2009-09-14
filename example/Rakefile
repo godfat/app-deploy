@@ -35,10 +35,9 @@ AppDeploy.dependency_gem :gem => 'pagfiy', :source => 'http://gems.github.com'
 # clone and build and install gem from github with bones
 AppDeploy.dependency_gem :github_user    => 'godfat',
                          :github_project => 'friendly_format',
-                         :task_gem       => 'bones',
-                         :git_path       => 'tmp/friendly_format'
+                         :task_gem       => 'bones'
 
-# same as above but with hoe
+# same as above but with hoe, and select a git clone path.
 AppDeploy.dependency_gem :github_user    => 'godfat',
                          :github_project => 'mogilefs-client',
                          :task_gem       => 'hoe',
