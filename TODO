@@ -6,3 +6,5 @@
 * extract rack-cluster
 * detect binding to port succeeded or not
 * fix default options for rack-cluster
+
+* provide a way to hide tasks we don't care
