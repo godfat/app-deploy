@@ -11,7 +11,11 @@ namespace :app do
     desc 'after install hook for you to override'
     task :after
 
-    task :default => [:before, 'git:clone', 'gem:install', :after]
+    task :default => [:before,
+                      'git:submodule',
+                      'git:clone',
+                      'gem:install',
+                      :after]
 
   end # of install
 end # of app

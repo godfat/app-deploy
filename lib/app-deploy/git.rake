@@ -33,6 +33,12 @@ namespace :app do
       sh 'git stash'
     end
 
+    desc 'init and update submodule'
+    task :submodule do
+      sh 'git submodule init'
+      sh 'git submodule update'
+    end
+
     desc 'clone repoitory from github'
     task :clone do
       AppDeploy.github.each{ |dep|
