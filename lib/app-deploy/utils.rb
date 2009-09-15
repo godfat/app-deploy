@@ -78,7 +78,11 @@ module AppDeploy
 
   # about gem
   def installed_gem? gem_name
-    `#{gem_bin} list '^#{gem_name}$'` =~ /^#{gem_name}/
+    # `#{gem_bin} list '^#{gem_name}$'` =~ /^#{gem_name}/
+    Gem.send(:gem, gem_name)
+    true
+  rescue LoadError
+    false
   end
 
   def install_gem opts
