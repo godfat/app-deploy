@@ -18,20 +18,24 @@ namespace :app do
                       :after]
 
     desc 'remote installation'
-    task :remote, :host, :git, :cd do |t, args|
-      unless [args[:host], args[:git], args[:cd]].all?
+    task :remote, :host, :git, :cd, :branch do |t, args|
+      unless [args[:host], args[:git]].all?
         puts 'please fill your arguments like:'
         puts "  > rake app:install:remote[#{args.names.join(',').upcase}]"
         exit(1)
       end
-      tmp = "app-deploy-#{Time.now.to_i}"
 
-      chdir = "cd #{args[:cd]}"
+      cd     = args[:cd]     || '~'
+      branch = args[:branch] || 'master'
+      tmp    = "app-deploy-#{Time.now.to_i}"
+
+      chdir = "cd #{cd}"
       clone = "git clone #{args[:git]} #{tmp}"
       setup = "find #{tmp} -maxdepth 1 '!' -name #{tmp} -exec mv '{}' . ';'"
       rmdir = "rmdir #{tmp}"
+      check = "git checkout #{branch}"
 
-      sh "ssh #{args[:host]} \"#{chdir}; #{clone}; #{setup}; #{rmdir}\""
+      sh "ssh #{args[:host]} \"#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}\""
     end
 
   end # of install
