@@ -69,7 +69,7 @@ rake app:thin:stop[config]          # stop the thin cluster
 
 == INSTALL:
 
-* sudo gem install app-deploy
+* gem install app-deploy
 
 == LICENSE:
 
