@@ -1,0 +1,7 @@
+#!/bin/sh
+
+rake app:install:remote host=app-deploy@10.0.0.99 \
+                         git=git://github.com/godfat/app-deploy.git \
+                          cd=~ \
+                      branch=origin/stable \
+                      script=./install.sh
