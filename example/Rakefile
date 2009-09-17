@@ -17,6 +17,7 @@ rescue LoadError
   sh 'rake gem:package'
   sh "#{gem_int} --local pkg/app-deploy-*.gem"
 
+  Dir.chdir '..'
   Gem.refresh
   require 'app-deploy'
 end
