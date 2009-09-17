@@ -78,7 +78,9 @@ namespace :app do
       AppDeploy.uninstall_gem(:gem => 'zzz')
 
       # install passenger nginx module
-      sh(Gem.default_exec_format % 'passenger-install-nginx-module')
+      sh("#{Gem.user_dir}/bin/" +
+         Gem.default_exec_format % 'passenger-install-nginx-module' +
+         " --auto --auto-download --prefix=#{Dir.pwd}/nginx")
     end
   end
 
