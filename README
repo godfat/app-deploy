@@ -15,43 +15,42 @@ by Lin Jen-Shin (a.k.a. godfat-真常[http://godfat.org])
 
 $ rake -T app
 (in /home/photos)
-(in /Users/godfat/projects/gits/app-deploy)
-rake app:daemon:restart[config]              # restart the daemon cluster
-rake app:daemon:start[config]                # start the daemon cluster
-rake app:daemon:stop[config]                 # stop the daemon cluster
-rake app:deploy                              # deploy to master state
-rake app:deploy:after                        # after deploy hook for you to override
-rake app:deploy:before                       # before deploy hook for you to override
-rake app:gem:install                         # install gems
-rake app:gem:reinstall                       # reinstall gems
-rake app:gem:uninstall                       # uninstall gems
-rake app:git[cmd]                            # generic git cmd walk through all dependency
-rake app:git:clone                           # clone repoitory from github
-rake app:git:gc                              # git gc
-rake app:git:pull                            # pull anything from origin
-rake app:git:stash                           # make anything reflect master state
-rake app:git:submodule                       # init and update submodule
-rake app:install                             # install this application
-rake app:install:after                       # after install hook for you to override
-rake app:install:before                      # before install hook for you to override
-rake app:install:remote[host,git,cd,branch]  # remote installation
-rake app:merb:restart                        # restart the merb server
-rake app:merb:start[config]                  # start the merb server, default config: config/merb.yml
-rake app:merb:stop                           # stop the merb server
-rake app:mongrel:restart                     # restart the mongrel cluster
-rake app:mongrel:start                       # start the mongrel cluster
-rake app:mongrel:stop                        # stop the mongrel cluster
-rake app:nginx:reload                        # reload config
-rake app:nginx:restart                       # restart nginx
-rake app:nginx:start[config,nginx]           # start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx
-rake app:nginx:stop[timeout]                 # stop nginx
-rake app:rack:restart[config]                # restart the rack cluster
-rake app:rack:start[config]                  # start the rack cluster
-rake app:rack:stop[config]                   # stop the rack cluster
-rake app:server:restart                      # please define your server:restart task
-rake app:thin:restart[config]                # restart the thin cluster
-rake app:thin:start[config]                  # start the thin cluster
-rake app:thin:stop[config]                   # stop the thin cluster
+rake app:daemon:restart[config]                     # restart the daemon cluster
+rake app:daemon:start[config]                       # start the daemon cluster
+rake app:daemon:stop[config]                        # stop the daemon cluster
+rake app:deploy                                     # deploy to master state
+rake app:deploy:after                               # after deploy hook for you to override
+rake app:deploy:before                              # before deploy hook for you to override
+rake app:gem:install                                # install gems
+rake app:gem:reinstall                              # reinstall gems
+rake app:gem:uninstall                              # uninstall gems
+rake app:git[cmd]                                   # generic git cmd walk through all dependency
+rake app:git:clone                                  # clone repoitory from github
+rake app:git:gc                                     # git gc
+rake app:git:pull                                   # pull anything from origin
+rake app:git:stash                                  # make anything reflect master state
+rake app:git:submodule                              # init and update submodule
+rake app:install                                    # install this application
+rake app:install:after                              # after install hook for you to override
+rake app:install:before                             # before install hook for you to override
+rake app:install:remote[host,git,cd,branch,script]  # remote installation
+rake app:merb:restart                               # restart the merb server
+rake app:merb:start[config]                         # start the merb server, default config: config/merb.yml
+rake app:merb:stop                                  # stop the merb server
+rake app:mongrel:restart                            # restart the mongrel cluster
+rake app:mongrel:start                              # start the mongrel cluster
+rake app:mongrel:stop                               # stop the mongrel cluster
+rake app:nginx:reload                               # reload config
+rake app:nginx:restart                              # restart nginx
+rake app:nginx:start[config,nginx]                  # start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx
+rake app:nginx:stop[timeout]                        # stop nginx
+rake app:rack:restart[config]                       # restart the rack cluster
+rake app:rack:start[config]                         # start the rack cluster
+rake app:rack:stop[config]                          # stop the rack cluster
+rake app:server:restart                             # please define your server:restart task
+rake app:thin:restart[config]                       # restart the thin cluster
+rake app:thin:start[config]                         # start the thin cluster
+rake app:thin:stop[config]                          # stop the thin cluster
 
 == SYNOPSIS:
 
