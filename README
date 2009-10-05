@@ -67,6 +67,7 @@ rake app:thin:stop[config]                          # stop the thin cluster
 
 == REQUIREMENTS:
 
+* ruby 1.8.7+
 * [required] rake
 * [optional] rubygems for rubygems task
 * [optional] git      for git      task
