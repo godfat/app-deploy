@@ -50,7 +50,7 @@ namespace :app do
     end
 
     desc 'create a user on remote machines'
-    task :init, :user, :hosts, :script do |t, args|
+    task :useradd, :user, :hosts, :script do |t, args|
       useradd = "sudo useradd -m #{args[:user]}"
       args[:hosts].split(',').each{ |host|
         sh "ssh #{host} \"#{useradd}; #{args[:script]}\""
@@ -65,7 +65,7 @@ namespace :app do
       ENV['script'] = "sudo -u #{args[:user]} tar -zxf #{ENV['path']}" +
                           " -C /home/#{args[:user]};" +
                       " rm #{ENV['path']}; #{args[:script]}"
-      Rake::Task['app:install:init'].invoke
+      Rake::Task['app:install:useradd'].invoke
     end
 
   end # of install

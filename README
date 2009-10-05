@@ -33,10 +33,10 @@ rake app:git:submodule                               # init and update submodule
 rake app:install                                     # install this application
 rake app:install:after                               # after install hook for you to override
 rake app:install:before                              # before install hook for you to override
-rake app:install:init[user,hosts,script]             # create a user on remote machines
 rake app:install:remote[hosts,git,cd,branch,script]  # remote installation
 rake app:install:setup[user,file,hosts,script]       # task init + upload ssh keys and untar it for the user
 rake app:install:upload[file,hosts,path]             # upload a file to remote machines
+rake app:install:useradd[user,hosts,script]          # create a user on remote machines
 rake app:merb:restart                                # restart the merb server
 rake app:merb:start[config]                          # start the merb server, default config: config/merb.yml
 rake app:merb:stop                                   # stop the merb server
