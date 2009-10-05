@@ -87,6 +87,15 @@ namespace :app do
   namespace :server do
     # use thin as server
     task :restart => 'thin:restart'
+
+    [:start, :stop, :restart, :reload].each{ |cmd|
+      desc "#{cmd} nginx(passenger)"
+      task cmd do
+        ENV['config'] = '/home/app/config/nginx.conf'
+        ENV['nginx']  = '/home/app/nginx/sbin/nginx'
+        Rake::Task["app:nginx:#{cmd}"].invoke
+      end
+    }
   end
 end
 
