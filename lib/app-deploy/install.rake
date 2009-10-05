@@ -18,8 +18,8 @@ namespace :app do
                       :after]
 
     desc 'remote installation'
-    task :remote, :host, :git, :cd, :branch, :script do |t, args|
-      unless [args[:host], args[:git]].all?
+    task :remote, :hosts, :git, :cd, :branch, :script do |t, args|
+      unless [args[:hosts], args[:git]].all?
         puts 'please fill your arguments like:'
         puts "  > rake app:install:remote[#{args.names.join(',').upcase}]"
         exit(1)
@@ -35,7 +35,11 @@ namespace :app do
       rmdir = "rmdir #{tmp}"
       check = "git checkout #{branch}"
 
-      sh "ssh #{args[:host]} \"#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}\""
+      args[:hosts].split(',').map{ |host|
+        Thread.new{
+          sh "ssh #{host} \"#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}\""
+        }
+      }.each(&:join)
     end
 
     desc 'upload a file to remote machines'
