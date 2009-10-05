@@ -33,7 +33,10 @@ rake app:git:submodule                              # init and update submodule
 rake app:install                                    # install this application
 rake app:install:after                              # after install hook for you to override
 rake app:install:before                             # before install hook for you to override
+rake app:install:init[user,hosts,script]            # create a user on remote machines
 rake app:install:remote[host,git,cd,branch,script]  # remote installation
+rake app:install:setup[user,file,hosts,script]      # task init + upload ssh keys and untar it for the user
+rake app:install:upload[file,hosts,path]            # upload a file to remote machines
 rake app:merb:restart                               # restart the merb server
 rake app:merb:start[config]                         # start the merb server, default config: config/merb.yml
 rake app:merb:stop                                  # stop the merb server
@@ -47,7 +50,10 @@ rake app:nginx:stop[timeout]                        # stop nginx
 rake app:rack:restart[config]                       # restart the rack cluster
 rake app:rack:start[config]                         # start the rack cluster
 rake app:rack:stop[config]                          # stop the rack cluster
-rake app:server:restart                             # please define your server:restart task
+rake app:server:reload                              # reload nginx(passenger)
+rake app:server:restart                             # please define your server:restart task / restart nginx(passenger)
+rake app:server:start                               # start nginx(passenger)
+rake app:server:stop                                # stop nginx(passenger)
 rake app:thin:restart[config]                       # restart the thin cluster
 rake app:thin:start[config]                         # start the thin cluster
 rake app:thin:stop[config]                          # stop the thin cluster
