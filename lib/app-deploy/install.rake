@@ -30,9 +30,9 @@ namespace :app do
       tmp    = "app-deploy-#{Time.now.to_i}"
 
       chdir = "cd #{cd}"
-      clone = "git clone #{args[:git]} #{tmp}"
-      setup = "find #{tmp} -maxdepth 1 '!' -name #{tmp} -exec mv '{}' . ';'"
-      rmdir = "rmdir #{tmp}"
+      clone = "git clone #{args[:git]} /tmp/#{tmp}"
+      setup = "find /tmp/#{tmp} -maxdepth 1 '!' -name #{tmp} -exec mv -f '{}' #{cd} ';'"
+      rmdir = "rmdir /tmp/#{tmp}"
       check = "git checkout #{branch}"
 
       args[:hosts].split(',').map{ |host|
