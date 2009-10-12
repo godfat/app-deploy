@@ -34,12 +34,11 @@ module AppDeploy
         if opts[:github_project]
           if File.directory?(opts[:git_path])
             Dir.chdir(opts[:git_path])
+            yield(opts)
           else
             puts "Skip #{opts[:github_project]}, because it was not found"
           end
         end
-
-        yield(opts)
 
       rescue RuntimeError => e
         puts e
