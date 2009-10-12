@@ -2,7 +2,7 @@
 namespace :app do
 
   desc 'generic git cmd walk through all dependency'
-  task :git, :cmd do |t, args|
+  task :git, [:cmd] do |t, args|
     cmd = args[:cmd] || 'status'
 
     puts "Invoking git #{cmd}..."

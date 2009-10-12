@@ -3,7 +3,7 @@ namespace :app do
   namespace :nginx do
 
     desc 'start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx'
-    task :start, :config, :nginx do |t, args|
+    task :start, [:config, :nginx] do |t, args|
       # TODO: extract pid file path
       if File.exist?('tmp/pids/nginx.pid')
         puts "WARN: pid file #{'tmp/pids/nginx.pid'} already exists, ignoring."
@@ -19,7 +19,7 @@ namespace :app do
     end
 
     desc 'stop nginx'
-    task :stop, :timeout do |t, args|
+    task :stop, [:timeout] do |t, args|
       # sh "kill -TERM `cat tmp/pids/nginx.pid`"
       AppDeploy.term('tmp/pids/nginx.pid', 'nginx', args[:timeout] || 5)
     end

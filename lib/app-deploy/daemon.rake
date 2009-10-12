@@ -5,7 +5,7 @@ namespace :app do
   namespace :daemon do
 
     desc 'start the daemon cluster'
-    task :start, :config do |t, args|
+    task :start, [:config] do |t, args|
       path = args[:config] || 'config/daemon_cluster.yaml'
       AppDeploy::DaemonCluster.each(path){ |config, cmd|
         AppDeploy::DaemonCluster.start(config, cmd)
@@ -13,7 +13,7 @@ namespace :app do
     end
 
     desc 'stop the daemon cluster'
-    task :stop, :config do |t, args|
+    task :stop, [:config] do |t, args|
       path = args[:config] || 'config/daemon_cluster.yaml'
       AppDeploy::DaemonCluster.each(path){ |config, cmd|
         AppDeploy.term(config[:pid], config[:server])
@@ -21,7 +21,7 @@ namespace :app do
     end
 
     desc 'restart the daemon cluster'
-    task :restart, :config do |t, args|
+    task :restart, [:config] do |t, args|
       path = args[:config] || 'config/daemon_cluster.yaml'
       AppDeploy::DaemonCluster.each(path){ |config, cmd|
         AppDeploy.term(config[:pid], config[:server])

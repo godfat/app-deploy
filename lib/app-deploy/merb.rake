@@ -3,7 +3,7 @@ namespace :app do
   namespace :merb do
 
     desc 'start the merb server, default config: config/merb.yml'
-    task :start, :config do |t, args|
+    task :start, [:config] do |t, args|
       sh "merb #{AppDeploy.extract_config(args[:config] || 'config/merb.yml')}"
     end
 

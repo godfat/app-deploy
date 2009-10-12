@@ -18,7 +18,7 @@ namespace :app do
                       :after]
 
     desc 'remote installation'
-    task :remote, :hosts, :git, :cd, :branch, :script do |t, args|
+    task :remote, [:hosts, :git, :cd, :branch, :script] do |t, args|
       unless [args[:hosts], args[:git]].all?
         puts 'please fill your arguments like:'
         puts "  > rake app:install:remote[#{args.names.join(',').upcase}]"
@@ -43,14 +43,14 @@ namespace :app do
     end
 
     desc 'upload a file to remote machines'
-    task :upload, :file, :hosts, :path do |t, args|
+    task :upload, [:file, :hosts, :path] do |t, args|
       args[:hosts].split(',').each{ |host|
         sh "scp #{args[:file]} #{host}:#{args[:path]}"
       }
     end
 
     desc 'create a user on remote machines'
-    task :useradd, :user, :hosts, :script do |t, args|
+    task :useradd, [:user, :hosts, :script] do |t, args|
       useradd = "sudo useradd -m #{args[:user]}"
       args[:hosts].split(',').each{ |host|
         sh "ssh #{host} \"#{useradd}; #{args[:script]}\""
@@ -58,7 +58,7 @@ namespace :app do
     end
 
     desc 'task init + upload ssh keys and untar it for the user'
-    task :setup, :user, :file, :hosts, :script do |t, args|
+    task :setup, [:user, :file, :hosts, :script] do |t, args|
       ENV['path'] = "/tmp/app-deploy-#{Time.now.to_i}"
       Rake::Task['app:install:upload'].invoke
 
