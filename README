@@ -26,7 +26,6 @@ rake app:gem:reinstall                                 # reinstall gems
 rake app:gem:uninstall                                 # uninstall gems
 rake app:git[cmd]                                      # generic git cmd walk through all dependency
 rake app:git:clone                                     # clone repoitory from github
-rake app:git:gc                                        # git gc
 rake app:git:pull                                      # pull anything from origin
 rake app:git:stash                                     # make anything reflect master state
 rake app:git:submodule                                 # init and update submodule

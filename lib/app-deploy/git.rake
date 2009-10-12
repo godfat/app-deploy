@@ -62,16 +62,5 @@ namespace :app do
       }
     end
 
-    desc 'git gc'
-    task :gc do
-      puts 'Garbage collecting...'
-      sh 'git gc'
-
-      AppDeploy.each(:github){ |opts|
-        puts "Garbage collecting #{opts[:github_project]}..."
-        sh 'git gc'
-      }
-    end
-
   end # of git
 end # of app
