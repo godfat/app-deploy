@@ -34,6 +34,7 @@ rake app:install:after                                 # after install hook for 
 rake app:install:before                                # before install hook for you to override
 rake app:install:remote[hosts,git,cd,branch,script]    # remote installation
 rake app:install:remote:setup[user,file,hosts,script]  # task init + upload ssh keys and untar it for the user
+rake app:install:remote:sh[hosts,script]               # invoke a shell script on remote machines
 rake app:install:remote:upload[file,hosts,path]        # upload a file to remote machines
 rake app:install:remote:useradd[user,hosts,script]     # create a user on remote machines
 rake app:nginx:reload                                  # reload config
@@ -43,7 +44,7 @@ rake app:nginx:stop[timeout]                           # stop nginx
 rake app:rack:restart[config]                          # restart the rack cluster
 rake app:rack:start[config]                            # start the rack cluster
 rake app:rack:stop[config]                             # stop the rack cluster
-rake app:server:restart                                # please define your server:restart task / restart nginx(passenger)
+rake app:server:restart                                # please define your server:restart task
 
 == SYNOPSIS:
 

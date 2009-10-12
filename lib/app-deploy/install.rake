@@ -38,10 +38,16 @@ namespace :app do
         rmdir = "rmdir /tmp/#{tmp}"
         check = "git checkout #{branch}"
 
+        ENV['script'] =
+          "\"#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}\""
+
+        Rake::Task['app:install:remote:sh'].invoke
+      end
+
+      desc 'invoke a shell script on remote machines'
+      task :sh, [:hosts, :script] do |t, args|
         args[:hosts].split(',').map{ |host|
-          Thread.new{
-            sh "ssh #{host} \"#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}\""
-          }
+          Thread.new{ sh "ssh #{host} #{args[:script]}" }
         }.each(&:join)
       end
 
