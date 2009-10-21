@@ -66,7 +66,7 @@ namespace :app do
         }
       end
 
-      desc 'task init + upload ssh keys and untar it for the user'
+      desc 'upload a tarball and untar to user home, then useradd'
       task :setup, [:user, :file, :hosts, :script] do |t, args|
         ENV['path'] = "/tmp/app-deploy-#{Time.now.to_i}"
         Rake::Task['app:install:remote:upload'].invoke
@@ -76,6 +76,7 @@ namespace :app do
                         " rm #{ENV['path']}; #{args[:script]}"
         Rake::Task['app:install:remote:useradd'].invoke
       end
+
     end # of remote
   end # of install
 end # of app

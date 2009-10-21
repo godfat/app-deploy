@@ -33,7 +33,7 @@ rake app:install                                       # install this applicatio
 rake app:install:after                                 # after install hook for you to override
 rake app:install:before                                # before install hook for you to override
 rake app:install:remote[hosts,git,cd,branch,script]    # remote installation
-rake app:install:remote:setup[user,file,hosts,script]  # task init + upload ssh keys and untar it for the user
+rake app:install:remote:setup[user,file,hosts,script]  # upload a tarball and untar to user home, then useradd
 rake app:install:remote:sh[hosts,script]               # invoke a shell script on remote machines
 rake app:install:remote:upload[file,hosts,path]        # upload a file to remote machines
 rake app:install:remote:useradd[user,hosts,script]     # create a user on remote machines
