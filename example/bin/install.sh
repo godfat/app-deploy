@@ -1,4 +1,4 @@
 #!/bin/sh
 
 rake app:install
-./start.sh
+./bin/start.sh

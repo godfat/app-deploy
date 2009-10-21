@@ -6,4 +6,4 @@ rake app:install:remote hosts=cas@10.0.0.101,cas@10.0.0.106,cas@10.0.0.111,cas@1
                           git=git@github.com:godfat/cas.git \
                            cd=~ \
                        branch=origin/stable \
-                       script=./install.sh
+                       script=./bin/install.sh
