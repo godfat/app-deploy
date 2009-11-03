@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+SUDO = '' # this prevent `rake gem:install` to use sudo
+
 require 'bones'
 Bones.setup
 
