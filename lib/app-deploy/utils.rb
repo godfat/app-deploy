@@ -39,7 +39,7 @@ module AppDeploy
             puts "Skip #{opts[:github_project]}, because it was not found"
           end
         else # it's a plain gem
-          yield(opts[:gem])
+          yield(opts)
         end
 
       rescue RuntimeError => e
