@@ -22,7 +22,8 @@ module AppDeploy
   end
 
   def each *with
-    with = [:github, :gem] if with.empty?
+    # yield common gem first, github gem last
+    with = [:gem, :github] if with.empty?
     cwd = Dir.pwd
 
     # github's gem would be in @github and @gem,
