@@ -31,24 +31,21 @@ module AppDeploy
     with.map{ |kind| AppDeploy.send(kind) }.flatten.uniq.each{ |opts|
       puts
 
-      begin
-        if opts[:github_project]
-          if File.directory?(opts[:git_path])
+      if opts[:github_project]
+        if File.directory?(opts[:git_path])
+          begin
             Dir.chdir(opts[:git_path])
             yield(opts)
-          else
-            puts "Skip #{opts[:github_project]}, because it was not found"
+          rescue RuntimeError => e
+            puts e
+          ensure
+            Dir.chdir(cwd)
           end
-        else # it's a plain gem
-          yield(opts)
+        else
+          puts "Skip #{opts[:github_project]}, because it was not found"
         end
-
-      rescue RuntimeError => e
-        puts e
-
-      ensure
-        Dir.chdir(cwd)
-
+      else # it's a plain gem
+        yield(opts)
       end
     }
   end
