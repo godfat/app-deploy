@@ -7,13 +7,16 @@ rescue LoadError
 end
 
 ensure_in_path 'lib'
-require 'app-deploy/version'
+proj = 'app-deploy'
 
 Bones{
-  name    'app-deploy'
-  url     'http://github.com/godfat/app-deploy'
+  require "#{proj}/version"
   version AppDeploy::VERSION
 
+  # ruby_opts [''] # silence warning, too many in addressable and/or dm-core
+
+  name    proj
+  url     "http://github.com/godfat/#{proj}"
   authors 'Lin Jen-Shin (aka godfat 真常)'
   email   'godfat (XD) godfat.org'
 
