@@ -39,7 +39,7 @@ namespace :app do
         check = "git checkout #{branch}"
 
         ENV['script'] =
-          "\"#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}\""
+          "#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}"
 
         Rake::Task['app:install:remote:sh'].invoke
       end
@@ -47,7 +47,8 @@ namespace :app do
       desc 'invoke a shell script on remote machines'
       task :sh, [:hosts, :script] do |t, args|
         args[:hosts].split(',').map{ |host|
-          Thread.new{ sh "ssh #{host} #{args[:script]}" }
+          script = args[:script].gsub('"', '\\"')
+          Thread.new{ sh "ssh #{host} \"#{script}\"" }
         }.each(&:join)
       end
 
@@ -62,7 +63,8 @@ namespace :app do
       task :useradd, [:user, :hosts, :script] do |t, args|
         useradd = "sudo useradd -m #{args[:user]}"
         args[:hosts].split(',').each{ |host|
-          sh "ssh #{host} \"#{useradd}; #{args[:script]}\""
+          script = "#{useradd}; #{args[:script]}".gsub('"', '\\"')
+          sh "ssh #{host} \"#{script}\""
         }
       end
 
