@@ -8,9 +8,9 @@ end
 
 ensure_in_path 'lib'
 proj = 'app-deploy'
+require "#{proj}/version"
 
 Bones{
-  require "#{proj}/version"
   version AppDeploy::VERSION
 
   # ruby_opts [''] # silence warning, too many in addressable and/or dm-core
