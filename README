@@ -13,7 +13,7 @@ by Lin Jen-Shin (aka godfat-真常[http://godfat.org])
 == FEATURES:
 
 $ rake -T app
-(in /home/photos)
+(in /Users/godfat/project/godfat/app-deploy)
 rake app:daemon:restart[config]                        # restart the daemon cluster
 rake app:daemon:start[config]                          # start the daemon cluster
 rake app:daemon:stop[config]                           # stop the daemon cluster
@@ -36,6 +36,7 @@ rake app:install:remote:setup[user,file,hosts,script]  # upload a tarball and un
 rake app:install:remote:sh[hosts,script]               # invoke a shell script on remote machines
 rake app:install:remote:upload[file,hosts,path]        # upload a file to remote machines
 rake app:install:remote:useradd[user,hosts,script]     # create a user on remote machines
+rake app:nginx:kill[signal]                            # send a signal to nginx
 rake app:nginx:reload                                  # reload config
 rake app:nginx:restart                                 # restart nginx
 rake app:nginx:start[config,nginx]                     # start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx
@@ -44,6 +45,10 @@ rake app:rack:restart[config]                          # restart the rack cluste
 rake app:rack:start[config]                            # start the rack cluster
 rake app:rack:stop[config]                             # stop the rack cluster
 rake app:server:restart                                # please define your server:restart task
+rake app:signal:kill[signal,pidfile,name]              # send a signal to a process with a pid file
+rake app:signal:restart[script,pidfile,timeout,name]   # restart a process with a pidfile
+rake app:signal:start[script,pidfile]                  # execute a script if pid file is not existed
+rake app:signal:stop[timeout,pidfile,name]             # terminate a process with a pid file
 
 == SYNOPSIS:
 
