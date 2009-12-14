@@ -1,11 +1,10 @@
-= app-deploy 0.5
-by Lin Jen-Shin (a.k.a. godfat-真常[http://godfat.org])
+= app-deploy 0.6
+by Lin Jen-Shin (aka godfat-真常[http://godfat.org])
   godfat (XD) godfat.org
 
 == LINKS:
 
 * github-project[http://github.com/godfat/app-deploy]
-* rubyforge-project[http://rubyforge.org/projects/ludy]
 
 == DESCRIPTION:
 
@@ -71,7 +70,7 @@ rake app:server:restart                                # please define your serv
 
 Apache License 2.0
 
-Copyright (c) 2008-2009, Lin Jen-Shin (a.k.a. godfat 真常)
+Copyright (c) 2008-2009, Lin Jen-Shin (aka godfat 真常)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

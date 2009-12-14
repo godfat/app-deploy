@@ -1,3 +1,7 @@
+= app-deploy changes history
 
-2008-12-10
-bundle as gem
+== app-deploy 0.6.0 / 2009-12-14
+ * first release to gemcutter
+
+== app-deploy ? / 2008-12-10
+ * bundle as gem
