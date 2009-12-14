@@ -12,18 +12,6 @@ namespace :app do
       end
     end
 
-    desc 'send a signal to nginx'
-    task :kill, [:signal] do |t, args|
-      AppDeploy.kill_pidfile(args[:signal], 'tmp/pids/nginx.pid', 'nginx')
-    end
-
-    desc 'reload config'
-    task :reload do
-      # sh 'kill -HUP `cat tmp/pids/nginx.pid`'
-      ENV['signal'] = 'HUP'
-      Rake::Task['app:nginx:kill'].invoke
-    end
-
     desc 'stop nginx'
     task :stop, [:timeout] do |t, args|
       # sh "kill -TERM `cat tmp/pids/nginx.pid`"
@@ -32,6 +20,18 @@ namespace :app do
 
     desc 'restart nginx'
     task :restart => [:stop, :start]
+
+    desc 'reload config'
+    task :reload do
+      # sh 'kill -HUP `cat tmp/pids/nginx.pid`'
+      ENV['signal'] = 'HUP'
+      Rake::Task['app:nginx:kill'].invoke
+    end
+
+    desc 'send a signal to nginx'
+    task :kill, [:signal] do |t, args|
+      AppDeploy.kill_pidfile(args[:signal], 'tmp/pids/nginx.pid', 'nginx')
+    end
 
   end # of nginx
 end # of app
