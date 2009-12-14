@@ -15,7 +15,7 @@ namespace :app do
     desc 'reload config'
     task :reload do
       # sh 'kill -HUP `cat tmp/pids/nginx.pid`'
-      AppDeploy.hup('tmp/pids/nginx.pid', 'nginx')
+      AppDeploy.kill_pidfile('HUP', 'tmp/pids/nginx.pid', 'nginx')
     end
 
     desc 'stop nginx'

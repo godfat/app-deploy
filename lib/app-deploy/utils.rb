@@ -145,45 +145,49 @@ module AppDeploy
     end
   end
 
-  def term pid_path, name = nil, limit = 5
-    if pid = AppDeploy.read_pid(pid_path)
-      puts "Sending TERM to #{name}(#{pid})..."
-
-    else
-      return
-
-    end
-
+  def term pid_path, name = nil, limit = 5, wait = 0.1
     require 'timeout'
-    begin
-      timeout(limit){
+    pid = AppDeploy.kill_pidfile('TERM', pid_path, name)
+    timeout(limit){
+      if pid
         while true
           Process.kill('TERM', pid)
-          sleep(0.1)
+          sleep(wait)
         end
-      }
-    rescue Errno::ESRCH
-      if File.exist?(pid_path)
-        puts "WARN: No such pid: #{pid}, removing #{pid_path}..."
-        File.delete(pid_path)
-      else
-        puts "Killed #{name}(#{pid})"
       end
+    }
+  rescue Errno::ESRCH
+    puts "Killed #{name}(#{pid})"
 
-    rescue Timeout::Error
-      puts "Timeout(#{limit}) killing #{name}(#{pid})"
+  rescue Timeout::Error
+    puts "Timeout(#{limit}) killing #{name}(#{pid})"
 
-    end
   end
 
-  def hup pid_path, name = nil
+  def kill_pidfile signal, pid_path, name = nil
     if pid = AppDeploy.read_pid(pid_path)
-      puts "Sending HUP to #{name}(#{pid})..."
-      Process.kill('HUP', pid)
+      AppDeploy.kill_raise(signal, pid, name)
+      return pid
     end
+    nil
   rescue Errno::ESRCH
     puts "WARN: No such pid: #{pid}, removing #{pid_path}..."
     File.delete(pid_path)
+    nil
+  end
+
+  def kill_pid signal, pid, name = nil
+    AppDeploy.kill_raise(signal, pid, name)
+    pid
+  rescue Errno::ESRCH
+    puts "WARN: No such pid: #{pid}"
+    nil
+  end
+
+  def kill_raise signal, pid, name = nil
+    puts "Sending #{signal} to #{name}(#{pid})..."
+    Process.kill(signal, pid)
+    pid
   end
 
 end
