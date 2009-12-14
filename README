@@ -59,8 +59,6 @@ rake app:server:restart                                # please define your serv
 * [required] rake
 * [optional] rubygems for rubygems task
 * [optional] git      for git      task
-* [optional] merb     for merb     task
-* [optional] mongrel  for mongrel  task
 * [optional] nginx    for nginx    task
 * [optional] rack and daemons for rack-cluster task
 * [optional] thin     for thin     task
