@@ -22,7 +22,11 @@ namespace :app do
     task :restart => [:stop, :start]
 
     desc 'reload config'
-    task :reload, [:signal] => [:kill]
+    task :reload do
+      # sh 'kill -HUP `cat tmp/pids/nginx.pid`'
+      ENV['signal'] = 'HUP'
+      Rake::Task['app:nginx:kill'].invoke
+    end
 
     desc 'send a signal to nginx'
     task :kill, [:signal] do |t, args|
