@@ -26,5 +26,5 @@ namespace :app do
       AppDeploy.kill_pidfile(args[:signal], args[:pidfile], args[:name])
     end
 
-  end # of nginx
+  end # of signal
 end # of app
