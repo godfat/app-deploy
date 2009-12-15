@@ -1,5 +1,7 @@
 = app-deploy todo list
 
+* please add test cases!!
+
 * adding sending signal to cluster
 
 * detect binding to port succeeded or not
