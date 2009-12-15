@@ -4,20 +4,12 @@ begin
 rescue LoadError
   puts "app-deploy not found, automaticly downloading and installing..."
 
-  gem_cmd = "#{Gem.ruby} #{`which gem`.strip}"
+  gem_cmd = "#{Gem.ruby} -S gem"
   gem_opt = '--user-install --no-ri --no-rdoc'
   gem_int = "#{gem_cmd} install #{gem_opt}"
 
-  sh "#{gem_int} bones" # need bones to build app-deploy
+  sh "#{gem_int} app-deploy"
 
-  sh 'git clone git://github.com/godfat/app-deploy.git app-deploy'
-  Dir.chdir 'app-deploy'
-
-  sh 'rake clobber'
-  sh 'rake gem:package'
-  sh "#{gem_int} --local pkg/app-deploy-*.gem"
-
-  Dir.chdir '..'
   Gem.refresh
   require 'app-deploy'
 end
