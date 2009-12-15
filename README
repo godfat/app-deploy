@@ -38,17 +38,23 @@ rake app:install:remote:upload[file,hosts,path]        # upload a file to remote
 rake app:install:remote:useradd[user,hosts,script]     # create a user on remote machines
 rake app:nginx:kill[signal]                            # send a signal to nginx
 rake app:nginx:reload                                  # reload config
-rake app:nginx:restart                                 # restart nginx
-rake app:nginx:start[config,nginx]                     # start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx
+rake app:nginx:restart[config,nginx,timeout]           # restart nginx
+rake app:nginx:start[config,nginx]                     # start nginx, default config is config/nginx.conf
 rake app:nginx:stop[timeout]                           # stop nginx
 rake app:rack:restart[config]                          # restart the rack cluster
 rake app:rack:start[config]                            # start the rack cluster
 rake app:rack:stop[config]                             # stop the rack cluster
 rake app:server:restart                                # please define your server:restart task
-rake app:signal:kill[signal,pidfile,name]              # send a signal to a process with a pid file
+rake app:signal:kill[signal,pidfile,name]              # send a signal to a process with a pidfile
+rake app:signal:reload[pidfile,name]                   # send HUP to a process with a pidfile
 rake app:signal:restart[script,pidfile,timeout,name]   # restart a process with a pidfile
-rake app:signal:start[script,pidfile]                  # execute a script if pid file is not existed
-rake app:signal:stop[timeout,pidfile,name]             # terminate a process with a pid file
+rake app:signal:start[script,pidfile]                  # execute a script if pidfile is not existed
+rake app:signal:stop[pidfile,timeout,name]             # terminate a process with a pidfile
+rake app:unicorn:kill[signal]                          # send a signal to unicorn
+rake app:unicorn:reload                                # reload config
+rake app:unicorn:restart[config,env,unicorn,timeout]   # restart unicorn
+rake app:unicorn:start[config,env,unicorn]             # start unicorn, default config is config/unicorn.rb
+rake app:unicorn:stop[timeout]                         # stop unicorn
 
 == SYNOPSIS:
 
