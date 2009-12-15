@@ -2,7 +2,7 @@
 namespace :app do
   namespace :nginx do
 
-    desc 'start nginx, default config is config/nginx.conf, nginx is /usr/sbin/nginx'
+    desc 'start nginx, default config is config/nginx.conf'
     task :start, [:config, :nginx] do |t, args|
       ENV[:script]  =
         "#{args[:nginx] || '/usr/sbin/nginx'} -c #{args[:config] || 'config/nginx.conf'}"
