@@ -1,5 +1,5 @@
 
-%w[ deploy gem git install nginx server rack daemon signal].each{ |task|
+%w[ deploy gem git install server rack daemon signal nginx unicorn].each{ |task|
   load "app-deploy/#{task}.rake"
 }
 
