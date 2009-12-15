@@ -6,6 +6,40 @@
  * switched nginx tasks to use signal tasks as a backend
  * added unicorn tasks just like the way nginx worked
 
+http://blogger.godfat.org/2009/12/app-deploy-released-2.html
+
+i hate myself... (that always do stupid things)
+
+i would prepare to release app-deploy-0.7.0 tomorrow,
+after some simple testings with the new nginx tasks
+and unicorn tasks, which wrapping signal tasks to
+manage processes with a pid file.
+
+there's no much difference between nginx tasks and
+unicorn tasks. to name a few, the process name,
+config path, and pid path. (plus a ENV option for rack/rails)
+
+that is, rake $ (-- is this Haskell favor i suppose? i mean, $)
+app:signal:start   # => start a process unless pid file existed
+app:signal:stop    # => send TERM to a process, ignore all errors
+app:signal:restart # => stop + start
+app:singal:reload  # => same as stop, but send HUP instead
+app:singal:kill    # send any signal as your wish
+
+then i would start migrating all services from passenger
+to unicorn afterward as i promised to Eric Wong.
+
+*
+
+mogilefs-client and unicorn are both well written.
+i'm an old fogey with large fonts too :p
+there are so many websites with horrible layouts on
+my browsers... especially on safari. firefox is a bit
+better about this. (words won't get overlapped sometimes)
+
+i should try to learn some styles from those two libs.
+and ramaze and innate, i guess.
+
 == app-deploy 0.6.0 / 2009-12-14
  * first release to gemcutter
 
