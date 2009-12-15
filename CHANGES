@@ -1,5 +1,11 @@
 = app-deploy changes history
 
+== app-deploy 0.7.0 / ?
+ * pid management rewritten
+ * added signal tasks to deal with any pidfile process
+ * switched nginx tasks to use signal tasks as a backend
+ * added unicorn tasks just like the way nginx worked
+
 == app-deploy 0.6.0 / 2009-12-14
  * first release to gemcutter
 
