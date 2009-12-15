@@ -20,7 +20,7 @@ namespace :app do
     end
 
     desc 'restart nginx'
-    task :restart => [:stop, :start]
+    task :restart, [:config, :nginx, :timeout] => [:stop, :start]
 
     desc 'reload config'
     task :reload do
