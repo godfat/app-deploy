@@ -12,7 +12,7 @@ namespace :app do
     end
 
     desc 'terminate a process with a pid file'
-    task :stop, [:timeout, :pidfile, :name] do |t, args|
+    task :stop, [:pidfile, :timeout, :name] do |t, args|
       # sh "kill -TERM `cat tmp/pids/nginx.pid`"
       AppDeploy.term(args[:pidfile], args[:name], args[:timeout] || 5)
     end
