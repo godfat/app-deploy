@@ -83,9 +83,20 @@ namespace :app do
     [:start, :stop, :restart, :reload].each{ |cmd|
       desc "#{cmd} nginx(passenger)"
       task cmd do
-        Rake::Task["app:nginx:#{cmd}"].invoke(
-          '/home/app/config/nginx.conf',
-          '/home/app/nginx/sbin/nginx')
+        task = Rake::Task["app:nginx:#{cmd}"]
+        args = task.arg_names.map{ |name|
+          case name
+            when :config; '/home/app/config/nginx.conf'
+            when :nginx;  '/home/app/nginx/sbin/nginx'
+            else;         nil
+          end
+        }
+        task.invoke(args)
+
+        # or
+        ENV['config'] = '/home/app/config/nginx.conf'
+        ENV['nginx']  = '/home/app/nginx/sbin/nginx'
+        Rake::Task["app:nginx:#{cmd}"].invoke
       end
     }
   end
