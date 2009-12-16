@@ -12,13 +12,13 @@ ns = namespace :app do
     end
 
     desc 'terminate a process with a pidfile'
-    task :stop, [:pidfile, :timeout, :name] do |t, args|
+    task :stop, [:pidfile, :name, :timeout] do |t, args|
       # sh "kill -TERM `cat tmp/pids/nginx.pid`"
       AppDeploy.term(args[:pidfile], args[:name], args[:timeout] || 5)
     end
 
     desc 'restart a process with a pidfile'
-    task :restart, [:script, :pidfile, :timeout, :name] => [:stop, :start]
+    task :restart, [:script, :pidfile, :name, :timeout] => [:stop, :start]
 
     desc 'send HUP to a process with a pidfile'
     task :reload, [:pidfile, :name] do |t, args|

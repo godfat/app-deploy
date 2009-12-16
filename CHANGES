@@ -3,6 +3,7 @@
 == app-deploy 0.7.2 / ?
  * fixed timeout, call to_i on timeout argument.
  * fixed signal:reload taking args
+ * moved timeout to be last argument.
 
 == app-deploy 0.7.1 / 2009-12-17
  * a way better task dependency management
