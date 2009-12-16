@@ -15,7 +15,7 @@ namespace :app do
     task :stop, [:timeout] do |t, args|
       # sh "kill -TERM `cat tmp/pids/unicorn.pid`"
       ENV['pidfile'] = 'tmp/pids/unicorn.pid'
-      ENV['timeout'] = args[:timeout] || 5
+      ENV['timeout'] = args[:timeout] || '5'
       ENV['name']    = 'unicorn'
       Rake::Task['app:signal:stop'].invoke
     end
