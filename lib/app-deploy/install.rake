@@ -38,10 +38,8 @@ namespace :app do
         rmdir = "rmdir /tmp/#{tmp}"
         check = "git checkout #{branch}"
 
-        ENV['script'] =
-          "#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}"
-
-        Rake::Task['app:install:remote:sh'].invoke
+        script = "#{chdir}; #{clone}; #{setup}; #{rmdir}; #{check}; #{args[:script]}"
+        Rake::Task['app:install:remote:sh'].invoke(args[:hosts], script)
       end
 
       desc 'invoke a shell script on remote machines'
@@ -70,13 +68,15 @@ namespace :app do
 
       desc 'upload a tarball and untar to user home, then useradd'
       task :setup, [:user, :file, :hosts, :script] do |t, args|
-        ENV['path'] = "/tmp/app-deploy-#{Time.now.to_i}"
-        Rake::Task['app:install:remote:upload'].invoke
+        path = "/tmp/app-deploy-#{Time.now.to_i}"
+        Rake::Task['app:install:remote:upload'].invoke(
+          args[:file], args[:hosts], path)
 
-        ENV['script'] = "sudo -u #{args[:user]} tar -zxf #{ENV['path']}" +
-                            " -C /home/#{args[:user]};" +
-                        " rm #{ENV['path']}; #{args[:script]}"
-        Rake::Task['app:install:remote:useradd'].invoke
+        script = "sudo -u #{args[:user]} tar -zxf #{path}" +
+                     " -C /home/#{args[:user]};"           +
+                 " rm #{path}; #{args[:script]}"
+        Rake::Task['app:install:remote:useradd'].invoke(
+          args[:user], args[:hosts], script)
       end
 
     end # of remote

@@ -1,5 +1,8 @@
 = app-deploy changes history
 
+== app-deploy 0.7.1 / ?
+ * a way better task dependency management
+
 == app-deploy 0.7.0 / 2009-12-16
  * pid management rewritten
  * added signal tasks to deal with any pidfile process
