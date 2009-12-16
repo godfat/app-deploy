@@ -1,6 +1,12 @@
 
 module AppDeploy
   module_function
+  def invoke task_name, hash
+    task = Rake::Task[task_name]
+    args = task.arg_names.map{ |name| hash[name] }
+    task.invoke(args)
+  end
+
   def always_reenable tasks
     tasks.each{ |t| t.enhance{ |tt| tt.reenable } }
   end

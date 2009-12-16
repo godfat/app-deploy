@@ -94,6 +94,11 @@ namespace :app do
         task.invoke(args)
 
         # or
+        AppDeploy.invoke("app:nginx:#{cmd}",
+          :config => '/home/app/config/nginx.conf',
+          :nginx  => '/home/app/nginx/sbin/nginx')
+
+        # or
         ENV['config'] = '/home/app/config/nginx.conf'
         ENV['nginx']  = '/home/app/nginx/sbin/nginx'
         Rake::Task["app:nginx:#{cmd}"].invoke
