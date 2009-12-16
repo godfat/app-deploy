@@ -152,7 +152,7 @@ module AppDeploy
   def term pid_path, name = nil, limit = 5, wait = 0.1
     require 'timeout'
     pid = AppDeploy.kill_pidfile('TERM', pid_path, name)
-    timeout(limit){
+    Timeout.timeout(limit.to_i){
       if pid
         while true
           Process.kill('TERM', pid)
