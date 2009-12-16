@@ -4,7 +4,7 @@ namespace :app do
 
     desc 'start unicorn, default config is config/unicorn.rb'
     task :start, [:config, :env, :unicorn] do |t, args|
-      ENV['script']  =     "#{args[:unicorn] || 'unicorn'}"           +
+      ENV['script']  =     "#{args[:unicorn] || 'unicorn'} -D"        +
                        " -c #{args[:config]  || 'config/unicorn.rb'}" +
                        " -E #{args[:env]     || 'production'}"
       ENV['pidfile'] = 'tmp/pids/unicorn.pid'
