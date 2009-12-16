@@ -21,7 +21,7 @@ ns = namespace :app do
     task :restart, [:script, :pidfile, :timeout, :name] => [:stop, :start]
 
     desc 'send HUP to a process with a pidfile'
-    task :reload, [:pidfile, :name] do
+    task :reload, [:pidfile, :name] do |t, args|
       # sh 'kill -HUP `cat tmp/pids/nginx.pid`'
       AppDeploy.kill_pidfile('HUP', args[:pidfile], args[:name])
     end
