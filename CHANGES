@@ -2,6 +2,8 @@
 
 == app-deploy 0.7.1 / ?
  * a way better task dependency management
+ * fixed that every task can be only invoked once,
+   now some tasks can be invoked twice or above by Task#reenable
 
 == app-deploy 0.7.0 / 2009-12-16
  * pid management rewritten

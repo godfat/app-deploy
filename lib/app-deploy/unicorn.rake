@@ -1,5 +1,5 @@
 
-namespace :app do
+ns = namespace :app do
   namespace :unicorn do
 
     desc 'start unicorn, default config is config/unicorn.rb'
@@ -34,3 +34,5 @@ namespace :app do
 
   end # of unicorn
 end # of app
+
+AppDeploy.always_reenable(ns.tasks)

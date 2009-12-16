@@ -1,5 +1,5 @@
 
-namespace :app do
+ns = namespace :app do
   namespace :nginx do
 
     desc 'start nginx, default config is config/nginx.conf'
@@ -33,3 +33,5 @@ namespace :app do
 
   end # of nginx
 end # of app
+
+AppDeploy.always_reenable(ns.tasks)

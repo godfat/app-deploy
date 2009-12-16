@@ -1,6 +1,10 @@
 
 module AppDeploy
   module_function
+  def always_reenable tasks
+    tasks.each{ |t| t.enhance{ |tt| tt.reenable } }
+  end
+
   def github; @github ||= []; end
   def dependency opts = {}
     opts = opts.dup

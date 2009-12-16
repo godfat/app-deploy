@@ -1,5 +1,5 @@
 
-namespace :app do
+ns = namespace :app do
   namespace :signal do
 
     desc 'execute a script if pidfile is not existed'
@@ -33,3 +33,5 @@ namespace :app do
 
   end # of signal
 end # of app
+
+AppDeploy.always_reenable(ns.tasks)
