@@ -4,9 +4,9 @@ namespace :app do
 
     desc 'start nginx, default config is config/nginx.conf'
     task :start, [:config, :nginx] do |t, args|
-      ENV[:script]  = "    #{args[:nginx]  || '/usr/sbin/nginx'}"   +
-                      " -c #{args[:config] || 'config/nginx.conf'}"
-      ENV[:pidfile] = 'tmp/pids/nginx.pid'
+      ENV['script']  = "    #{args[:nginx]  || '/usr/sbin/nginx'}"   +
+                       " -c #{args[:config] || 'config/nginx.conf'}"
+      ENV['pidfile'] = 'tmp/pids/nginx.pid'
       Rake::Task['app:signal:start'].invoke
     end
 
