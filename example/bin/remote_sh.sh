@@ -2,4 +2,4 @@
 
 source .bash_profile
 
-rake app:install:remote:sh hosts=$hosts script=$1
+rake app:remote:sh hosts=$hosts script=$1
