@@ -1,0 +1,11 @@
+
+$ ./bin/start.sh   # start or restart server with git HEAD
+$ ./bin/restart.sh # restart server with local modification
+
+$ ./bin/update.sh  # update to latest version, and call ./bin/start.sh
+$ ./bin/install.sh # install the entire application, and call ./bin/start.sh
+
+$ ./bin/remote_install.sh # useradd on each node and execute ./bin/install.sh on them
+$ ./bin/remote_update.sh  # call ./bin/update.sh on each node
+
+$ ./bin/remote_sh.sh 'command' # execute `command' on each node
