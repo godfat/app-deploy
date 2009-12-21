@@ -1,3 +1,5 @@
 #!/bin/sh
 
-rake app:remote:sh hosts=cas@10.0.0.101,cas@10.0.0.106,cas@10.0.0.111,cas@10.0.0.116,cas@10.0.0.121 script=./bin/update.sh
+source .bash_profile
+
+rake app:install:remote:sh hosts=$hosts script=./bin/update.sh

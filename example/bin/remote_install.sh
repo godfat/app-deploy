@@ -1,9 +1,13 @@
 #!/bin/sh
 
-rake app:remote:setup user=cas file=ssh.tgz hosts=root@10.0.0.101,root@10.0.0.106,root@10.0.0.111,root@10.0.0.116,root@10.0.0.121
+source .bash_profile
 
-rake app:remote:install hosts=cas@10.0.0.101,cas@10.0.0.106,cas@10.0.0.111,cas@10.0.0.116,cas@10.0.0.121 \
-                          git=git@github.com:godfat/cas.git \
-                           cd=~ \
-                       branch=origin/stable \
-                       script=./bin/install.sh
+rake app:install:remote:useradd user=$project hosts=$nodes
+
+rake app:install:remote hosts=$nodes \
+                          git=git@github.com:godfat/$project.git \
+                           cd=/home/$project \
+                       branch=origin/$branch \
+                       script="git submodule init; git submodule update; gem install rake; ./roodo-rc/install.rb; chown $project:$project -R ."
+
+rake app:install:remote:sh hosts=$hosts script='./bin/install.sh'

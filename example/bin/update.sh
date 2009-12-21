@@ -1,7 +1,6 @@
 #!/bin/sh
 
 git fetch
-git stash
-git checkout origin/stable
+git reset --hard origin/$branch
 git submodule update
 ./bin/start.sh
