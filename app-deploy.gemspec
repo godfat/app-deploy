@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lin Jen-Shin (aka godfat 真常)"]
-  s.date = %q{2009-12-17}
+  s.date = %q{2009-12-21}
   s.description = %q{ rake tasks for deployment}
   s.email = %q{godfat (XD) godfat.org}
   s.extra_rdoc_files = ["CHANGES", "README", "Rakefile", "TODO", "app-deploy.gemspec", "example/Rakefile", "example/bin/install.sh", "example/bin/remote_install.sh", "example/bin/remote_update.sh", "example/bin/start.sh", "example/bin/update.sh", "example/daemon_cluster.yaml", "example/rack_cluster.yaml", "lib/app-deploy/daemon.rake", "lib/app-deploy/deploy.rake", "lib/app-deploy/deprecated/merb.rake", "lib/app-deploy/deprecated/mongrel.rake", "lib/app-deploy/gem.rake", "lib/app-deploy/git.rake", "lib/app-deploy/install.rake", "lib/app-deploy/nginx.rake", "lib/app-deploy/rack.rake", "lib/app-deploy/server.rake", "lib/app-deploy/signal.rake", "lib/app-deploy/thin.rake", "lib/app-deploy/unicorn.rake"]
