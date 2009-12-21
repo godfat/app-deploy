@@ -14,47 +14,48 @@ by Lin Jen-Shin (aka godfat-真常[http://godfat.org])
 
 $ rake -T app
 (in /Users/godfat/project/godfat/app-deploy)
-rake app:daemon:restart[config]                        # restart the daemon cluster
-rake app:daemon:start[config]                          # start the daemon cluster
-rake app:daemon:stop[config]                           # stop the daemon cluster
-rake app:deploy                                        # deploy to master state
-rake app:deploy:after                                  # after deploy hook for you to override
-rake app:deploy:before                                 # before deploy hook for you to override
-rake app:gem:install                                   # install gems
-rake app:gem:reinstall                                 # reinstall gems
-rake app:gem:uninstall                                 # uninstall gems
-rake app:git[cmd]                                      # generic git cmd walk through all dependency
-rake app:git:clone                                     # clone repoitory from github
-rake app:git:pull                                      # pull anything from origin
-rake app:git:stash                                     # make anything reflect master state
-rake app:git:submodule                                 # init and update submodule
-rake app:install                                       # install this application
-rake app:install:after                                 # after install hook for you to override
-rake app:install:before                                # before install hook for you to override
-rake app:install:remote[hosts,git,cd,branch,script]    # remote installation
-rake app:install:remote:setup[user,file,hosts,script]  # upload a tarball and untar to user home, then useradd
-rake app:install:remote:sh[hosts,script]               # invoke a shell script on remote machines
-rake app:install:remote:upload[file,hosts,path]        # upload a file to remote machines
-rake app:install:remote:useradd[user,hosts,script]     # create a user on remote machines
-rake app:nginx:kill[signal]                            # send a signal to nginx
-rake app:nginx:reload                                  # reload config
-rake app:nginx:restart[config,nginx,timeout]           # restart nginx
-rake app:nginx:start[config,nginx]                     # start nginx, default config is config/nginx.conf
-rake app:nginx:stop[timeout]                           # stop nginx
-rake app:rack:restart[config]                          # restart the rack cluster
-rake app:rack:start[config]                            # start the rack cluster
-rake app:rack:stop[config]                             # stop the rack cluster
-rake app:server:restart                                # please define your server:restart task
-rake app:signal:kill[signal,pidfile,name]              # send a signal to a process with a pidfile
-rake app:signal:reload[pidfile,name]                   # send HUP to a process with a pidfile
-rake app:signal:restart[script,pidfile,timeout,name]   # restart a process with a pidfile
-rake app:signal:start[script,pidfile]                  # execute a script if pidfile is not existed
-rake app:signal:stop[pidfile,timeout,name]             # terminate a process with a pidfile
-rake app:unicorn:kill[signal]                          # send a signal to unicorn
-rake app:unicorn:reload                                # reload config
-rake app:unicorn:restart[config,env,unicorn,timeout]   # restart unicorn
-rake app:unicorn:start[config,env,unicorn]             # start unicorn, default config is config/unicorn.rb
-rake app:unicorn:stop[timeout]                         # stop unicorn
+rake app:daemon:restart[config]                       # restart the daemon cluster
+rake app:daemon:start[config]                         # start the daemon cluster
+rake app:daemon:stop[config]                          # stop the daemon cluster
+rake app:deploy                                       # deploy to master state
+rake app:deploy:after                                 # after deploy hook for you to override
+rake app:deploy:before                                # before deploy hook for you to override
+rake app:gem:install                                  # install gems
+rake app:gem:reinstall                                # reinstall gems
+rake app:gem:uninstall                                # uninstall gems
+rake app:git[cmd]                                     # generic git cmd walk through all dependency
+rake app:git:clone                                    # clone repoitory from github
+rake app:git:pull                                     # pull anything from origin
+rake app:git:stash                                    # make anything reflect master state
+rake app:git:submodule                                # init and update submodule
+rake app:install                                      # install this application
+rake app:install:after                                # after install hook for you to override
+rake app:install:before                               # before install hook for you to override
+rake app:install:remote[hosts,git,cd,branch,script]   # remote installation
+rake app:nginx:kill[signal]                           # send a signal to nginx
+rake app:nginx:reload                                 # reload config
+rake app:nginx:restart[config,nginx,timeout]          # restart nginx
+rake app:nginx:start[config,nginx]                    # start nginx, default config is config/nginx.conf
+rake app:nginx:stop[timeout]                          # stop nginx
+rake app:rack:restart[config]                         # restart the rack cluster
+rake app:rack:start[config]                           # start the rack cluster
+rake app:rack:stop[config]                            # stop the rack cluster
+rake app:remote:setup[user,file,hosts,script]         # upload a tarball and untar to user home, then useradd
+rake app:remote:sh[hosts,script]                      # invoke a shell script on remote machines
+rake app:remote:upload[file,hosts,path]               # upload a file to remote machines
+rake app:remote:useradd[user,hosts,script]            # create a user on remote machines
+rake app:server:reload                                # reload nginx(passenger)
+rake app:server:restart                               # please define your server:restart task
+rake app:signal:kill[signal,pidfile,name]             # send a signal to a process with a pidfile
+rake app:signal:reload[pidfile,name]                  # send HUP to a process with a pidfile
+rake app:signal:restart[script,pidfile,name,timeout]  # restart a process with a pidfile
+rake app:signal:start[script,pidfile]                 # execute a script if pidfile is not existed
+rake app:signal:stop[pidfile,name,timeout]            # terminate a process with a pidfile
+rake app:unicorn:kill[signal]                         # send a signal to unicorn
+rake app:unicorn:reload                               # reload config
+rake app:unicorn:restart[config,env,unicorn,timeout]  # restart unicorn
+rake app:unicorn:start[config,env,unicorn]            # start unicorn, default config is config/unicorn.rb
+rake app:unicorn:stop[timeout]                        # stop unicorn
 
 == SYNOPSIS:
 

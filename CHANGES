@@ -1,5 +1,8 @@
 = app-deploy changes history
 
+== app-deploy 0.8.0 / ?
+ * extracted remote tasks from install tasks
+
 == app-deploy 0.7.2 / 2009-12-21
  * fixed timeout, call to_i on timeout argument.
  * fixed signal:reload taking args
