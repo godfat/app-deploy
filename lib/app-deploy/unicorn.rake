@@ -4,9 +4,14 @@ ns = namespace :app do
 
     desc 'start unicorn, default config is config/unicorn.rb'
     task :start, [:config, :env, :unicorn] do |t, args|
-      script =     "#{args[:unicorn] || 'unicorn'} -D"        +
-               " -c #{args[:config]  || 'config/unicorn.rb'}" +
-               " -E #{args[:env]     || 'production'}"
+      env = if args[:env]
+              " -E #{args[:env]}"
+            else
+              ''
+            end
+
+      script =     "#{args[:unicorn] || 'unicorn'} -D" +
+               " -c #{args[:config]  || 'config/unicorn.rb'}#{env}"
       Rake::Task['app:signal:start'].invoke(script, 'tmp/pids/unicorn.pid')
     end
 
