@@ -1,6 +1,6 @@
 = app-deploy changes history
 
-== app-deploy 0.8.0 / ?
+== app-deploy 0.8.0 / 2010-03-22
  * extracted remote tasks from install tasks
 
 == app-deploy 0.7.2 / 2009-12-21
