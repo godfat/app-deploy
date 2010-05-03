@@ -2,7 +2,7 @@
 module AppDeploy
   module_function
   # wrap Rake::Task#invoke for named arguments
-  def invoke task_name, hash
+  def invoke task_name, hash = {}
     task = Rake::Task[task_name]
     args = task.arg_names.map{ |name| hash[name] }
     task.invoke(*args)
