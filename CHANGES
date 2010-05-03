@@ -1,5 +1,8 @@
 = app-deploy changes history
 
+== app-deploy 0.8.1 / 2010-05-03
+ * now AppDeploy.invoke won't force you pass args
+
 == app-deploy 0.8.0 / 2010-03-22
  * extracted remote tasks from install tasks
 
