@@ -1,34 +1,38 @@
-# encoding: utf-8
 
-begin
-  require 'bones'
-rescue LoadError
-  abort '### Please install the "bones" gem ###'
-end
+require "#{dir = File.dirname(__FILE__)}/task/gemgem"
+Gemgem.dir = dir
 
-ensure_in_path 'lib'
-proj = 'app-deploy'
-require "#{proj}/version"
+($LOAD_PATH << File.expand_path("#{Gemgem.dir}/lib" )).uniq!
 
-Bones{
-  version AppDeploy::VERSION
+desc 'Generate gemspec'
+task 'gem:spec' do
+  Gemgem.spec = Gem::Specification.new do |s|
+    require 'app-deploy/version'
 
-  # ruby_opts [''] # silence warning, too many in addressable and/or dm-core
+    s.name    = 'app-deploy'
+    s.version = AppDeploy::VERSION
 
-  name    proj
-  url     "http://github.com/godfat/#{proj}"
-  authors 'Lin Jen-Shin (aka godfat 真常)'
-  email   'godfat (XD) godfat.org'
+    # s.add_dependency('ripl')
+    %w[].each{ |g|
+      s.add_development_dependency(g)
+    }
 
-  history_file   'CHANGES'
-   readme_file   'README'
-   ignore_file   '.gitignore'
-  rdoc.include   ['\w+']
-}
+    s.authors     = ['Lin Jen-Shin (godfat)']
+    s.email       = ['godfat (XD) godfat.org']
+    s.homepage    = "http://github.com/godfat/#{s.name}"
+    s.summary     = File.read("#{Gemgem.dir}/README").
+                    match(/== DESCRIPTION:\n\n(.+)?\n\n== FEATURES:/m)[1]
+    s.description = s.summary
+    # s.executables = [s.name]
 
-CLEAN.include Dir['**/*.rbc']
+    s.date             = Time.now.strftime('%Y-%m-%d')
+    s.rubygems_version = Gem::VERSION
+    s.files            = Gemgem.gem_files
+    s.test_files       = Gemgem.gem_files.grep(/test_.+?\.rb$/)
+    s.extra_rdoc_files = %w[CHANGES TODO]
+    s.rdoc_options     = %w[--main README]
+    s.require_paths    = %w[lib]
+  end
 
-task :default do
-  Rake.application.options.show_task_pattern = /./
-  Rake.application.display_tasks_and_comments
+  Gemgem.write
 end
